@@ -63,7 +63,6 @@ RUN echo configuring fastdfs nginx... \
     && cp /tmp/fastdfs-nginx-module-master/src/mod_fastdfs.conf /etc/fdfs \
     && sed -i "s#base_path=.*#base_path=${FDFS_HOME}/data#" ${FDFS_HOME}/etc/client.conf \
     && sed -i "s%tracker_server=.*%tracker_server=0.0.0.0:22122\n#tracker_server=0.0.0.0:22123\n#tracker_server=0.0.0.0:22124%" ${FDFS_HOME}/etc/client.conf \
-    && sed -i "s#port=23000#port=23000#" ${FDFS_HOME}/etc/storage.conf \
     && sed -i "s#base_path=.*#base_path=${FDFS_HOME}/data#" ${FDFS_HOME}/etc/storage.conf \
     && sed -i "s#store_path0=.*#store_path0=${FDFS_HOME}/data#" ${FDFS_HOME}/etc/storage.conf \
     && sed -i "s%tracker_server=.*%tracker_server=0.0.0.0:22122\n#tracker_server=0.0.0.0:22123\n#tracker_server=0.0.0.0:22124%" ${FDFS_HOME}/etc/storage.conf \
