@@ -73,6 +73,8 @@ RUN echo configuring fastdfs nginx... \
     && chmod +x /opt/docker-entrypoint.sh \
     && rm -rf /tmp/*
 
+WORKDIR /opt
+
 EXPOSE 22122 ${STORAGE_PORT:-23000} 80
 
-ENTRYPOINT ["/opt/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
