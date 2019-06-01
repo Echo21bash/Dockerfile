@@ -75,6 +75,6 @@ RUN echo configuring fastdfs nginx... \
 
 WORKDIR /opt
 
-EXPOSE 22122 23000 80
+EXPOSE 22122 23000 8080
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
