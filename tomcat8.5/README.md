@@ -1,6 +1,1 @@
 
-本镜像基于CentOS7.5、JDK8、Tomcat8.5制作
-并对JVM参数和Tomcat配置适当修改满足大部分场景
-Dockerfile 文件中的JDK和Tomcat下载链接均来源于网络
-都是选取第一个可用版本
-
