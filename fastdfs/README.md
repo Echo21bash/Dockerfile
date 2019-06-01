@@ -5,11 +5,14 @@
     3、集成Nginx_fastdfs模块提供http服务
 关于该容器的使用说明
 -------
-    1、单机模式(ip 192.168.1.2)
-    运行 docker run --name fdfs -d -v /data/fastdfs:/opt/fdfs/data -p 8080:80 -p 22122:22122 -p 2300:2300 -e TRACKER_ADDR1=192.168.1.2:22122  docker.io/rootww/fastdfs:latest
+    1、获取镜像
+    docker pull docker.io/rootww/fastdfs:latest
+    2、单机模式(ip 192.168.1.2)
+    运行
+    docker run --name fdfs -d -v /data/fastdfs:/opt/fdfs/data -p 8080:80 -p 22122:22122 -p 2300:2300 -e TRACKER_ADDR1=192.168.1.2:22122  docker.io/rootww/fastdfs:latest
 
     
-    2、集群模式(多台机器ip192.168.1.2 192.168.1.3)
+    3、集群模式(多台机器ip192.168.1.2 192.168.1.3)
     
     以tracker模式启动
     
