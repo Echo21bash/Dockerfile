@@ -69,6 +69,7 @@ RUN echo configuring fastdfs nginx... \
     && sed -i "s#base_path=.*#base_path=${FDFS_HOME}/data#" ${FDFS_HOME}/etc/tracker.conf \
     && sed -i "s#base_path=.*#base_path=${FDFS_HOME}/data#" /etc/fdfs/mod_fastdfs.conf \
     && sed -i "s%tracker_server=.*%tracker_server=0.0.0.0:22122\n#tracker_server=0.0.0.0:22123\n#tracker_server=0.0.0.0:22124%" /etc/fdfs/mod_fastdfs.conf \
+    && sed -i "s/url_have_group_name = false/url_have_group_name = true/" /etc/fdfs/mod_fastdfs.conf \
     && sed -i "s#store_path0=.*#store_path0=${FDFS_HOME}/data#" /etc/fdfs/mod_fastdfs.conf \
     && chmod +x /opt/docker-entrypoint.sh \
     && rm -rf /tmp/*
