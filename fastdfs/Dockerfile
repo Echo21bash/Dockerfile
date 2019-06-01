@@ -77,4 +77,4 @@ WORKDIR /opt
 
 EXPOSE 22122 ${STORAGE_PORT:-23000} 80
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["/opt/docker-entrypoint.sh"]
