@@ -1,6 +1,6 @@
 FROM centos:7.5.1804
 
-LABEL name="CentOS7 FASTDFS"
+LABEL name="CentOS7 FASTDFS:latest"
 
 ENV FDFS_DOWN_URL='https://github.com/happyfish100/fastdfs/archive/master.tar.gz' \
     FDFSCOMM_DOWN_URL='https://github.com/happyfish100/libfastcommon/archive/master.tar.gz' \
