@@ -10,7 +10,6 @@
 
 [[ x${GROUP_NAME} != x ]] && sed -i "s%group_name=group1%group_name=${GROUP_NAME}%" ${FDFS_HOME}/etc/storage.conf /etc/fdfs/mod_fastdfs.conf
 
-[[ "$SERVER_TYPE" =~ "tracker" || "$SERVER_TYPE" = "" ]] && ${FDFS_HOME}/bin/fdfs_trackerd ${FDFS_HOME}/etc/tracker.conf
-[[ "$SERVER_TYPE" =~ "storage" || "$SERVER_TYPE" = "" ]] && ${FDFS_HOME}/bin/fdfs_storaged ${FDFS_HOME}/etc/storage.conf && /opt/nginx/sbin/nginx
+[[ "$SERVER_TYPE" =~ "tracker" || "$SERVER_TYPE" = "" ]] && ${FDFS_HOME}/bin/fdfs_trackerd ${FDFS_HOME}/etc/tracker.conf && tail -f ${FDFS_HOME}/data/logs/trackerd.log
+[[ "$SERVER_TYPE" =~ "storage" || "$SERVER_TYPE" = "" ]] && ${FDFS_HOME}/bin/fdfs_storaged ${FDFS_HOME}/etc/storage.conf && /opt/nginx/sbin/nginx && tail -f ${FDFS_HOME}/data/logs/storaged.log ${NGINX_HOME}/logs/*.log
 
-tail -f /dev/null
