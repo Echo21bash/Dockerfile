@@ -2,7 +2,7 @@ FROM centos:7.5.1804
 
 LABEL name="CentOS7 JDK8"
 
-ENV java_down_url='http://mirrors.linuxeye.com/jdk' \
+ENV java_down_url='http://mirrors.linuxeye.com/jdk'
 
 RUN java_ver=`curl -Ls ${java_down_url}/md5sum.txt | grep -oE jdk-8u.*-linux-x64.tar.gz | head -n 1` \
     && echo Downloading ${java_ver}... \
