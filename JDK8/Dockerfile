@@ -27,4 +27,4 @@ ENV JAVA_HOME=/opt/java \
     -XX:+CMSParallelRemarkEnabled \
     -XX:+AggressiveOpts"
 
-WORKERDIR /opt/jar
+WORKEDIR /opt/jar
