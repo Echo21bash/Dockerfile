@@ -9,7 +9,7 @@ RUN java_ver=`curl -Ls ${java_down_url}/md5sum.txt | grep -oE jdk-8u.*-linux-x64
     && curl -L -o /tmp/jdk.tar.gz ${java_down_url}/${java_ver} \
     && mkdir /opt/{java,jar} \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
-    && rm -rf /tmp/jdk.tar.gz
+    && rm -rf /tmp/jdk.tar.gz \
     && rm -rf /etc/localtime && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # Tomcat and Java Vars
