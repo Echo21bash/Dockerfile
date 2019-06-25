@@ -13,5 +13,15 @@ ENV SERVER_ADDR     0.0.0.0 \
 
 RUN apk --no-cache add python \
     libsodium \
-    wget
+    && curl -L -o /tmp/shadowsocksr-3.2.2.tar.gz https://github.com/shadowsocksrr/shadowsocksr/archive/3.2.2.tar.gz \
+	&& tar zxf /tmp/shadowsocksr-3.2.2.tar.gz -C /tmp \
+	&& mv /tmp/shadowsocksr-3.2.2/shadowsocks /usr/local/ \
+	&& rm -fr /tmp/shadowsocksr-3.2.2 \
+	&& rm -f /tmp/shadowsocksr-3.2.2.tar.gz
+
+WORKDIR /usr/local/shadowsocks
+
+EXPOSE $SERVER_PORT
+
+CMD python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM
     
