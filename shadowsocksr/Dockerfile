@@ -15,6 +15,7 @@ ADD docker-entrypoint.sh /opt
 
 RUN apk --no-cache add python \
     libsodium \
+    curl \
     && curl -L -o /tmp/shadowsocksr-3.2.2.tar.gz https://github.com/shadowsocksrr/shadowsocksr/archive/3.2.2.tar.gz \
 	&& tar zxf /tmp/shadowsocksr-3.2.2.tar.gz -C /tmp \
 	&& mv /tmp/shadowsocksr-3.2.2/shadowsocks /usr/local/ \
