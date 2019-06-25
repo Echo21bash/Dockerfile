@@ -1,7 +1,7 @@
 FROM alpine
 
 ENV SERVER_ADDR=0.0.0.0 \
-    SERVER_PORT=8888 \
+    SERVER_PORT=8388 \
     PASSWORD=passw0ord \
     METHOD=aes-128-ctr \
     PROTOCOL=auth_aes128_md5 \
