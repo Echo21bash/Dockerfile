@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine
 
 ENV SERVER_ADDR     0.0.0.0 \
     SERVER_PORT     51348 \
