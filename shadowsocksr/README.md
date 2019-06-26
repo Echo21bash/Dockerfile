@@ -4,7 +4,7 @@
     2、源码来自https://github.com/shadowsocksrr/shadowsocksr
 以server方式启动
 ----
-    docker run --name ssr-server -d -p 8388:8388 -e SERVER_TYPE=server rootww/shadowsocksrshadowsocksr:latest
+    docker run --name ssr-server -d -p 8388:8388 -e SERVER_TYPE=server rootww/shadowsocksr:latest
 以client方式启动
 ----
     docker run --name ssr-client -d -p 1080:1080 -v shadowsocksr.json:/etc/shadowsocksr.json -e SERVER_TYPE=client rootww/shadowsocksr:latest
