@@ -9,7 +9,6 @@ ENV SERVER_ADDR=0.0.0.0 \
     OBFS=http_simple_compatible \
     TIMEOUT=300
 
-
 ADD docker-entrypoint.sh /opt
 
 RUN apk --no-cache add python \
@@ -27,4 +26,3 @@ WORKDIR /usr/local/shadowsocks
 EXPOSE $SERVER_PORT
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
-    
