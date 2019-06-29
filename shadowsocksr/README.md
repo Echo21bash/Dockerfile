@@ -29,3 +29,8 @@
     "method": "aes-256-cfb"
     }
     
+    linux 配置代理
+    #export proxy="socks5://172.18.8.114:1080"
+    #export https_proxy=$proxy
+    #export http_proxy=$proxy
+    #export no_proxy="localhost,172.18.8.114,127.0.0.1, ::1"
