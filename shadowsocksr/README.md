@@ -21,7 +21,7 @@
     "server": "z0403.zionnode.com",
     "server_ipv6": "::",
     "server_port": 38756,
-    "local_address": "127.0.0.1",
+    "local_address": "0.0.0.0",
     "local_port": 1080,
     "password": "opoma2NF3Eq5l6zj",
     "group": "Charles Xu",
