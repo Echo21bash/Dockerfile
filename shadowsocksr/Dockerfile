@@ -7,7 +7,8 @@ ENV SERVER_ADDR=0.0.0.0 \
     PROTOCOL=auth_aes128_md5 \
     PROTOCOLPARAM=32 \
     OBFS=http_simple_compatible \
-    TIMEOUT=300
+    TIMEOUT=300 \
+    DNS_ADDR=8.8.8.8
 
 ADD docker-entrypoint.sh /opt
 
