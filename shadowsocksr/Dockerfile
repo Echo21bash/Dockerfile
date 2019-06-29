@@ -22,6 +22,8 @@ RUN apk --no-cache add python \
     && rm -rf /tmp/shadowsocksr-3.2.2 \
     && rm -f /tmp/shadowsocksr-3.2.2.tar.gz
 
+ADD dns.conf /usr/local/shadowsocks
+
 WORKDIR /usr/local/shadowsocks
 
 EXPOSE $SERVER_PORT
