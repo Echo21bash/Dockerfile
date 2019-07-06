@@ -12,13 +12,13 @@ ENV SERVER_ADDR=0.0.0.0 \
 
 ADD docker-entrypoint.sh /opt
 
-RUN apk --no-cache add python \
-    libsodium \
-    curl \
+RUN apk --no-cache add python libsodium curl \
     && curl -L -o /tmp/shadowsocksr-3.2.2.tar.gz https://github.com/shadowsocksrr/shadowsocksr/archive/3.2.2.tar.gz \
     && tar zxf /tmp/shadowsocksr-3.2.2.tar.gz -C /tmp \
     && mv /tmp/shadowsocksr-3.2.2/shadowsocks /usr/local/ \
     && chmod +x /opt/docker-entrypoint.sh \
+    && rm -rf /etc/localtime \
+    && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /tmp/shadowsocksr-3.2.2 \
     && rm -f /tmp/shadowsocksr-3.2.2.tar.gz
 
