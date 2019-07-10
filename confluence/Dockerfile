@@ -1,4 +1,4 @@
-FROM cptactionhank/atlassian-confluence:6.8.2
+FROM cptactionhank/atlassian-confluence:6.8.1
 
 USER root
 # 将代理破解包加入容器
