@@ -2,7 +2,7 @@ FROM alpine:3.8
 
 LABEL name="alpine JDK8"
 
-ENV java_down_url='https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz'
+ENV java_down_url='http://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz'
 
 RUN apk --no-cache add curl \
     && echo Downloading jdk-8u181-linux-x64.tar.gz... \
