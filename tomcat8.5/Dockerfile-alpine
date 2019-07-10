@@ -4,8 +4,7 @@ LABEL name="alpine3.9 JDK8 Tomcat8.5"
 
 ENV tomcat_down_url='http://mirrors.ustc.edu.cn/apache/tomcat/tomcat-8'
 
-RUN apk --no-cache add curl \
-    && mkdir -p /opt/tomcat \
+RUN mkdir -p /opt/tomcat \
     && tomcat_ver=`curl -Ls ${tomcat_down_url} | grep -oE "8.5.[0-9]{1,2}" | head -n 1` \
     && echo Downloading apache-tomcat-${tomcat_ver}.tar.gz... \
     && curl -L -o /tmp/tomcat.tar.gz ${tomcat_down_url}/v${tomcat_ver}/bin/apache-tomcat-${tomcat_ver}.tar.gz \
