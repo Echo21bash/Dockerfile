@@ -2,11 +2,10 @@ FROM centos:7.5.1804
 
 LABEL name="CentOS7 JDK8"
 
-ENV java_down_url='http://mirrors.linuxeye.com/jdk'
+ENV java_down_url='https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz'
 
-RUN java_ver=`curl -Ls ${java_down_url}/md5sum.txt | grep -oE jdk-8u.*-linux-x64.tar.gz | head -n 1` \
-    && echo Downloading ${java_ver}... \
-    && curl -L -o /tmp/jdk.tar.gz ${java_down_url}/${java_ver} \
+RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
+    && curl -L -o /tmp/jdk.tar.gz ${java_down_url} \
     && mkdir /opt/{java,jar} \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
     && rm -rf /tmp/jdk.tar.gz \
@@ -14,7 +13,7 @@ RUN java_ver=`curl -Ls ${java_down_url}/md5sum.txt | grep -oE jdk-8u.*-linux-x64
     && rm -rf /opt/java/src.zip \
     && rm -rf /opt/java/javafx-src.zip
 
-# Tomcat and Java Vars
+#JAVA_OPTS
 ENV JAVA_HOME=/opt/java \
     PATH=/opt/java/bin:$PATH \
     JAVA_OPTS="-Xms1024m \
