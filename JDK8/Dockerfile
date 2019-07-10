@@ -10,7 +10,9 @@ RUN java_ver=`curl -Ls ${java_down_url}/md5sum.txt | grep -oE jdk-8u.*-linux-x64
     && mkdir /opt/{java,jar} \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
     && rm -rf /tmp/jdk.tar.gz \
-    && rm -rf /etc/localtime && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    && rm -rf /etc/localtime && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && rm -rf /opt/java/src.zip \
+    && rm -rf /opt/java/javafx-src.zip
 
 # Tomcat and Java Vars
 ENV JAVA_HOME=/opt/java \
