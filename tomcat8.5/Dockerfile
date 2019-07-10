@@ -11,7 +11,6 @@ RUN mkdir /opt/tomcat \
     && tar zxf /tmp/tomcat.tar.gz --strip-components 1 -C /opt/tomcat \
     && rm -rf /tmp/tomcat.tar.gz \
 
-
 # Tomcat
 ENV CATALINA_HOME=/opt/tomcat
 
