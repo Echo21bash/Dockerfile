@@ -7,7 +7,7 @@ ENV tomcat_down_url='http://mirrors.ustc.edu.cn/apache/tomcat/tomcat-8'
 RUN mkdir -p /opt/tomcat \
     && tomcat_ver=`curl -Ls ${tomcat_down_url} | grep -oE "8.5.[0-9]{1,2}" | head -n 1` \
     && echo Downloading apache-tomcat-${tomcat_ver}.tar.gz... \
-    && wget -O /tmp/tomcat.tar.gz ${tomcat_down_url}/v${tomcat_ver}/bin/apache-tomcat-${tomcat_ver}.tar.gz \
+    && wget -q -O /tmp/tomcat.tar.gz ${tomcat_down_url}/v${tomcat_ver}/bin/apache-tomcat-${tomcat_ver}.tar.gz \
     && tar zxf /tmp/tomcat.tar.gz --strip-components 1 -C /opt/tomcat \
     && rm -rf /tmp/tomcat.tar.gz
 
