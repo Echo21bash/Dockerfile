@@ -1,11 +1,11 @@
-FROM alpine:3.9
+FROM rootww/alpine-glibc:3.9-2.29
 
 LABEL name="alpine JDK8"
 
 ENV java_down_url='http://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz'
 
 RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
-    && wget -O /tmp/jdk.tar.gz ${java_down_url} \
+    && wget -q -O /tmp/jdk.tar.gz ${java_down_url} \
     && mkdir -p /opt/java /opt/jar \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
     && rm -rf /tmp/jdk.tar.gz \
