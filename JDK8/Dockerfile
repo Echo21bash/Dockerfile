@@ -10,7 +10,7 @@ RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
     && rm -rf /tmp/jdk.tar.gz \
     && rm -rf /etc/localtime && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && rm -rf /opt/java/src.zip \
+    && rm -rf /opt/java/*src.zip \
               /opt/java/lib/missioncontrol \
               /opt/java/lib/visualvm \
               /opt/java/lib/*javafx* \
