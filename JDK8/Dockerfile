@@ -11,9 +11,12 @@ RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
     && rm -rf /tmp/jdk.tar.gz \
     && rm -rf /etc/localtime && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /opt/java/src.zip \
-              /opt/java/javafx-src.zip \
+              /opt/java/lib/missioncontrol \
+              /opt/java/lib/visualvm \
+              /opt/java/lib/*javafx* \
               /opt/java/jre/plugin \
               /opt/java/jre/bin/javaws \
+              /opt/java/jre/bin/jjs \
               /opt/java/jre/bin/orbd \
               /opt/java/jre/bin/pack200 \
               /opt/java/jre/bin/policytool \
@@ -35,6 +38,7 @@ RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
               /opt/java/jre/lib/amd64/libjavafx*.so \
               /opt/java/jre/lib/amd64/libjfx*.so \
               /opt/java/jre/lib/ext/jfxrt.jar \
+              /opt/java/jre/lib/ext/nashorn.jar \
               /opt/java/jre/lib/oblique-fonts \
               /opt/java/jre/lib/plugin.jar
 
