@@ -2,9 +2,23 @@ FROM centos:7.5.1804
 
 LABEL name="CentOS7 JDK8"
 
-ENV java_down_url='https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz'
+#JAVA_OPTS
+ENV JAVA_HOME=/opt/java \
+    PATH=/opt/java/bin:$PATH \
+    JAVA_OPTS="-Xms1024m \
+    -Xmx1024m \
+    -Xmn384m \
+    -Xss512k \
+    -XX:SurvivorRatio=10 \
+    -XX:MetaspaceSize=128m \
+    -XX:MaxMetaspaceSize=196m \
+    -XX:+UseConcMarkSweepGC \
+    -XX:+CMSScavengeBeforeRemark \
+    -XX:+CMSParallelRemarkEnabled \
+    -XX:+AggressiveOpts"
 
 RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
+    && java_down_url='https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz' \
     && curl -L -o /tmp/jdk.tar.gz ${java_down_url} \
     && mkdir /opt/{java,jar} \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
@@ -41,20 +55,5 @@ RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
               /opt/java/jre/lib/ext/nashorn.jar \
               /opt/java/jre/lib/oblique-fonts \
               /opt/java/jre/lib/plugin.jar
-
-#JAVA_OPTS
-ENV JAVA_HOME=/opt/java \
-    PATH=/opt/java/bin:$PATH \
-    JAVA_OPTS="-Xms1024m \
-    -Xmx1024m \
-    -Xmn384m \
-    -Xss512k \
-    -XX:SurvivorRatio=10 \
-    -XX:MetaspaceSize=128m \
-    -XX:MaxMetaspaceSize=196m \
-    -XX:+UseConcMarkSweepGC \
-    -XX:+CMSScavengeBeforeRemark \
-    -XX:+CMSParallelRemarkEnabled \
-    -XX:+AggressiveOpts"
 
 WORKDIR /opt/jar
