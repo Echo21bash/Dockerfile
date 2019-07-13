@@ -1,2 +1,34 @@
 FROM rootww/jdk8:alpine
 
+LABEL name="alpine3.9 JDK8 Zookeeper3.4"
+
+ENV ZK_DATA_DIR=/opt/zookeeper/data \
+    ZK_DATA_LOG_DIR=/opt/zookeeper/logs \
+    ZK_LOG_DIR=/opt/zookeeper/logs \
+
+RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
+    && zookeeper_down_url='http://mirrors.ustc.edu.cn/apache/zookeeper' \
+    && zookeeper_ver=`curl -Ls ${tomcat_down_url} | grep -oE "3.4.[0-9]{1,2}" | head -n 1` \
+    && echo Downloading zookeeper-${zookeeper_ver}.tar.gz... \
+    && curl -L -o /tmp/zookeeper.tar.gz ${zookeeper_down_url}/zookeeper-${zookeeper_ver}/zookeeper-${zookeeper_ver}.tar.gz \
+    && tar zxf /tmp/zookeeper.tar.gz --strip-components 1 -C /opt/zookeeper \
+    && mv /opt/zookeeper/zookeeper-${zookeeper_ver}.jar /opt/zookeeper/lib
+    && rm -rf /tmp/zookeeper.tar.gz \
+              /opt/zookeeper/build.xml \
+              /opt/zookeeper/contrib \
+              /opt/zookeeper/dist-maven \
+              /opt/zookeeper/docs \
+              /opt/zookeeper/ivy.xml \
+              /opt/zookeeper/ivysettings.xml \
+              /opt/zookeeper/pom.xml \
+              /opt/zookeeper/src \
+              /opt/zookeeper/zookeeper-* \
+              /opt/zookeeper/recipe
+
+WORKDIR /opt/zookeeper
+
+EXPOSE 2181 2888 3888
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["bin/zkServer.sh", "start-foreground"]
