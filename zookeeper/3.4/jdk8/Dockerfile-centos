@@ -1,4 +1,4 @@
-FROM rootww/jdk8:centos
+FROM rootww/java:8-centos
 
 LABEL name="centos7 JDK8 Zookeeper3.4"
 
