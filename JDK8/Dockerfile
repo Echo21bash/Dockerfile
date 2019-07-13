@@ -19,7 +19,7 @@ ENV JAVA_HOME=/opt/java \
 
 RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
     && java_down_url='https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz' \
-    && curl -L -o /tmp/jdk.tar.gz ${java_down_url} \
+    && curl -L -s -o /tmp/jdk.tar.gz ${java_down_url} \
     && mkdir /opt/{java,jar} \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
     && rm -rf /tmp/jdk.tar.gz \
