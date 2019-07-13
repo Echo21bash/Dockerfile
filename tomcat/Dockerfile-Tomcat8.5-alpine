@@ -1,4 +1,4 @@
-FROM rootww/jdk8:alpine
+FROM rootww/java:8-alpine
 
 LABEL name="alpine3.9 JDK8 Tomcat8.5"
 
