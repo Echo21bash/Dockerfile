@@ -6,7 +6,7 @@ ENV ZK_DATA_DIR=/opt/zookeeper/data \
     ZK_DATA_LOG_DIR=/opt/zookeeper/logs \
     ZK_LOG_DIR=/opt/zookeeper/logs \
 
-ADD docker-entrypoint.sh /opt/zookeeper
+ADD docker-entrypoint.sh /opt/zookeeper/docker-entrypoint.sh
 
 RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && zookeeper_down_url='http://mirrors.ustc.edu.cn/apache/zookeeper' \
