@@ -1,4 +1,4 @@
-FROM rootww/jdk8:latest
+FROM rootww/java:8-centos
 
 LABEL name="CentOS7 JDK8 Tomcat8.5"
 
