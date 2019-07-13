@@ -1,6 +1,6 @@
-FROM rootww/jdk8:alpine
+FROM rootww/jdk8:centos
 
-LABEL name="alpine3.9 JDK8 Zookeeper3.4"
+LABEL name="centos7 JDK8 Zookeeper3.4"
 
 ENV ZK_DATA_DIR=/opt/zookeeper/data \
     ZK_DATA_LOG_DIR=/opt/zookeeper/logs \
