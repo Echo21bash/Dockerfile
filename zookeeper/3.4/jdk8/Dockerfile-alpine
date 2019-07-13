@@ -8,7 +8,8 @@ ENV ZK_DATA_DIR=/opt/zookeeper/data \
 
 ADD docker-entrypoint.sh /opt/zookeeper/docker-entrypoint.sh
 
-RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
+RUN apk --no-cache add curl \
+    && mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && zookeeper_down_url='http://mirrors.ustc.edu.cn/apache/zookeeper' \
     && zookeeper_ver=`curl -Ls ${zookeeper_down_url} | grep -oE "3.4.[0-9]{1,2}" | head -n 1` \
     && echo Downloading zookeeper-${zookeeper_ver}.tar.gz... \
