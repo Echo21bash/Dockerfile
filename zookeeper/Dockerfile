@@ -6,6 +6,8 @@ ENV ZK_DATA_DIR=/opt/zookeeper/data \
     ZK_DATA_LOG_DIR=/opt/zookeeper/logs \
     ZK_LOG_DIR=/opt/zookeeper/logs \
 
+ADD docker-entrypoint.sh /opt/zookeeper
+
 RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && zookeeper_down_url='http://mirrors.ustc.edu.cn/apache/zookeeper' \
     && zookeeper_ver=`curl -Ls ${tomcat_down_url} | grep -oE "3.4.[0-9]{1,2}" | head -n 1` \
@@ -13,6 +15,7 @@ RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && curl -L -o /tmp/zookeeper.tar.gz ${zookeeper_down_url}/zookeeper-${zookeeper_ver}/zookeeper-${zookeeper_ver}.tar.gz \
     && tar zxf /tmp/zookeeper.tar.gz --strip-components 1 -C /opt/zookeeper \
     && mv /opt/zookeeper/zookeeper-${zookeeper_ver}.jar /opt/zookeeper/lib
+    && chmod +x /opt/zookeeper/docker-entrypoint.sh \
     && rm -rf /tmp/zookeeper.tar.gz \
               /opt/zookeeper/build.xml \
               /opt/zookeeper/contrib \
@@ -29,6 +32,6 @@ WORKDIR /opt/zookeeper
 
 EXPOSE 2181 2888 3888
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["bin/zkServer.sh", "start-foreground"]
