@@ -295,9 +295,9 @@ JAVA_ENV_FILE="$CONF_DIR/java.env"
 if [[ $HOST =~ (.*)-([0-9]+)$ ]]; then
     NAME=${BASH_REMATCH[1]}
     ORD=${BASH_REMATCH[2]}
-else
-    echo "Fialed to parse name and ordinal of Pod"
-    exit 1
+#else
+    #echo "Fialed to parse name and ordinal of Pod"
+    #exit 1
 fi
 
 MY_ID=$((ORD+1))
