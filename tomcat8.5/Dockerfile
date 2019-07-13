@@ -2,9 +2,10 @@ FROM rootww/jdk8:latest
 
 LABEL name="CentOS7 JDK8 Tomcat8.5"
 
-ENV tomcat_down_url='http://mirrors.ustc.edu.cn/apache/tomcat/tomcat-8'
+ENV CATALINA_HOME=/opt/tomcat
 
 RUN mkdir /opt/tomcat \
+    && tomcat_down_url='http://mirrors.ustc.edu.cn/apache/tomcat/tomcat-8' \
     && tomcat_ver=`curl -Ls ${tomcat_down_url} | grep -oE "8.5.[0-9]{1,2}" | head -n 1` \
     && echo Downloading apache-tomcat-${tomcat_ver}.tar.gz... \
     && curl -L -o /tmp/tomcat.tar.gz ${tomcat_down_url}/v${tomcat_ver}/bin/apache-tomcat-${tomcat_ver}.tar.gz \
@@ -12,8 +13,6 @@ RUN mkdir /opt/tomcat \
     && rm -rf /tmp/tomcat.tar.gz
 
 #Tomcat
-ENV CATALINA_HOME=/opt/tomcat
-
 RUN echo Configuring tomcat... \
     && echo '               maxThreads="600"'>/tmp/tmp.server.xml \
     && echo '               minSpareThreads="100"'>>/tmp/tmp.server.xml \
