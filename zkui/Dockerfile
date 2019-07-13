@@ -1,4 +1,4 @@
-FROM rootww/jdk8
+FROM rootww/jdk8:alpine
 
 ADD zkui-*.jar /opt/jar/zkui.jar
 ADD config.cfg /opt/jar/config.cfg
