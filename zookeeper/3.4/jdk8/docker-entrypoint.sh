@@ -8,7 +8,6 @@ DATA_DIR="/opt/zookeeper/data"
 DATA_LOG_DIR="/opt/zookeeper/logs"
 LOG_DIR="/opt/zookeeper/logs"
 CONF_DIR="/opt/zookeeper/conf"
-
 ID_FILE="$DATA_DIR/myid"
 CONFIG_FILE="$CONF_DIR/zoo.cfg"
 JAVA_ENV_FILE="$CONF_DIR/java.env"
@@ -23,12 +22,18 @@ HEAP=${HEAP:-512M}
 MAX_CLIENT_CNXNS=${MAX_CLIENT_CNXNS:-60}
 SNAP_RETAIN_COUNT=${SNAP_RETAIN_COUNT:-3}
 PURGE_INTERVAL=${PURGE_INTERVAL:-0}
+MIN_SESSION_TIMEOUT=${MIN_SESSION_TIMEOUT:-$((TICK_TIME*2))}
+MAX_SESSION_TIMEOUT=${MAX_SESSION_TIMEOUT:-$((TICK_TIME*20))}
 SERVERS=${SERVERS:-1}
 
 function print_servers() {
     for (( i=1; i<=$SERVERS; i++ ))
     do
-        echo "server.$i=$NAME-$((i-1)).$DOMAIN:$SERVER_PORT:$ELECTION_PORT"
+        if [[ -z $OTHER ]];then
+            echo "server.$i=$NAME-$((i-1)).$DOMAIN:$SERVER_PORT:$ELECTION_PORT"
+        else
+            echo "server.$i=$NAME-$i:$SERVER_PORT:$ELECTION_PORT"
+        fi
     done
 }
 
@@ -48,6 +53,8 @@ function create_config() {
     echo "autopurge.purgeInteval=$PURGE_INTERVAL" >> $CONFIG_FILE
     if [ $SERVERS -gt 1 ]; then
         print_servers >> $CONFIG_FILE
+        #判断有状态还是无状态
+        [[ -z $OTHER ]] && MY_ID=$((ORD+1)) || MY_ID=$ORD
         echo $MY_ID >> $ID_FILE
     fi
     cat $CONFIG_FILE >&2
@@ -59,19 +66,10 @@ function create_jvm_props() {
     echo "JVMFLAGS=\"-Xmx$HEAP -Xms$HEAP\"" >> $JAVA_ENV_FILE
 }
 
-
-
-
-MIN_SESSION_TIMEOUT=${MIN_SESSION_TIMEOUT:- $((TICK_TIME*2))}
-MAX_SESSION_TIMEOUT=${MAX_SESSION_TIMEOUT:- $((TICK_TIME*20))}
-
-
-if [[ $HOST =~ (.*)-([0-9]+)$ ]]; then
+if [[ $HOST =~ (.*)-([0-9]+)-(.*)$ ]]; then
     NAME=${BASH_REMATCH[1]}
     ORD=${BASH_REMATCH[2]}
-
+    OTHER=${BASH_REMATCH[3]}
 fi
-
-MY_ID=$((ORD+1))
 
 create_config && create_jvm_props && /opt/zookeeper/bin/zkServer.sh start-foreground
