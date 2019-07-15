@@ -48,6 +48,7 @@ function create_config() {
     echo "autopurge.purgeInteval=$PURGE_INTERVAL" >> $CONFIG_FILE
     if [ $SERVERS -gt 1 ]; then
         print_servers >> $CONFIG_FILE
+        echo $MY_ID >> $ID_FILE
     fi
     cat $CONFIG_FILE >&2
 }
