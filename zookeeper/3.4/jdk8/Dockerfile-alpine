@@ -9,7 +9,7 @@ RUN apk --no-cache add curl \
     && zookeeper_down_url='http://mirrors.ustc.edu.cn/apache/zookeeper' \
     && zookeeper_ver=`curl -Ls ${zookeeper_down_url} | grep -oE "3.4.[0-9]{1,2}" | head -n 1` \
     && echo Downloading zookeeper-${zookeeper_ver}.tar.gz... \
-    && curl -L -o /tmp/zookeeper.tar.gz ${zookeeper_down_url}/zookeeper-${zookeeper_ver}/zookeeper-${zookeeper_ver}.tar.gz \
+    && curl -Ls -o /tmp/zookeeper.tar.gz ${zookeeper_down_url}/zookeeper-${zookeeper_ver}/zookeeper-${zookeeper_ver}.tar.gz \
     && tar zxf /tmp/zookeeper.tar.gz --strip-components 1 -C /opt/zookeeper \
     && mv /opt/zookeeper/zookeeper-${zookeeper_ver}.jar /opt/zookeeper/lib \
     && chmod +x /opt/docker-entrypoint.sh \
