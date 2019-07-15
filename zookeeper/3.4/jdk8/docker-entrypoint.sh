@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 USER=`whoami`
 HOST=`hostname -s`
