@@ -1,6 +1,5 @@
 #!/bin/bash
 
-USER=`whoami`
 HOST=`hostname -s`
 DOMAIN=`hostname -d`
 
@@ -29,10 +28,10 @@ SERVERS=${SERVERS:-1}
 function print_servers() {
     for (( i=1; i<=$SERVERS; i++ ))
     do
-        if [[ -z $OTHER ]];then
+        if [[ -z $DOMAIN ]];then
             echo "server.$i=$NAME-$((i-1)).$DOMAIN:$SERVER_PORT:$ELECTION_PORT"
         else
-            echo "server.$i=$NAME-$i:$SERVER_PORT:$ELECTION_PORT"
+            echo "server.$i=$NAME$i:$SERVER_PORT:$ELECTION_PORT"
         fi
     done
 }
@@ -54,7 +53,7 @@ function create_config() {
     if [ $SERVERS -gt 1 ]; then
         print_servers >> $CONFIG_FILE
         #判断有状态还是无状态
-        [[ -z $OTHER ]] && MY_ID=$((ORD+1)) || MY_ID=$ORD
+        [[ -z $DOMAIN ]] && MY_ID=$((ORD+1)) || MY_ID=$ORD
         echo $MY_ID >> $ID_FILE
     fi
     cat $CONFIG_FILE >&2
@@ -66,10 +65,26 @@ function create_jvm_props() {
     echo "JVMFLAGS=\"-Xmx$HEAP -Xms$HEAP\"" >> $JAVA_ENV_FILE
 }
 
-if [[ $HOST =~ (.*)-([0-9]+)-(.*)$ ]]; then
-    NAME=${BASH_REMATCH[1]}
-    ORD=${BASH_REMATCH[2]}
-    OTHER=${BASH_REMATCH[3]}
+if [[ -z $DOMAIN ]];then
+    if [[ $HOST =~ (.*)-([0-9]+)$ ]]; then
+        NAME=${BASH_REMATCH[1]}
+        ORD=${BASH_REMATCH[2]}
+    fi
+else
+    NF=$(echo $HOST | awk -F - '{print NF}')
+    a=$(($NF-2))
+    i=1
+    for aa in $(echo $HOST | grep -oE "[0-9a-z]{1,}")
+    do
+        if (( $i <= $a ));then
+            [[ $i = 1 ]] && NAME=$aa || NAME=$NAME-$aa
+        else
+            break
+		fi
+		((i++))
+    done
+    ORD=$(echo $NAME | grep -oE "[0-9]{1,}")
+    NAME=$(echo $NAME | grep -oE "[a-z-]{1,}")
 fi
 
 create_config && create_jvm_props && /opt/zookeeper/bin/zkServer.sh start-foreground
