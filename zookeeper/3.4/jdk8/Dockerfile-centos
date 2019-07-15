@@ -2,10 +2,6 @@ FROM rootww/java:8-centos
 
 LABEL name="centos7 JDK8 Zookeeper3.4"
 
-ENV ZK_DATA_DIR=/opt/zookeeper/data \
-    ZK_DATA_LOG_DIR=/opt/zookeeper/logs \
-    ZK_LOG_DIR=/opt/zookeeper/logs
-
 ADD docker-entrypoint.sh /opt/docker-entrypoint.sh
 
 RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
