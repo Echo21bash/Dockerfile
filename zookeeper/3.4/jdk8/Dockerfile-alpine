@@ -2,10 +2,6 @@ FROM rootww/java:8-alpine
 
 LABEL name="alpine3.9 JDK8 Zookeeper3.4"
 
-ENV ZK_DATA_DIR=/opt/zookeeper/data \
-    ZK_DATA_LOG_DIR=/opt/zookeeper/logs \
-    ZK_LOG_DIR=/opt/zookeeper/logs
-
 ADD docker-entrypoint.sh /opt/docker-entrypoint.sh
 
 RUN apk --no-cache add curl \
@@ -16,7 +12,7 @@ RUN apk --no-cache add curl \
     && curl -L -o /tmp/zookeeper.tar.gz ${zookeeper_down_url}/zookeeper-${zookeeper_ver}/zookeeper-${zookeeper_ver}.tar.gz \
     && tar zxf /tmp/zookeeper.tar.gz --strip-components 1 -C /opt/zookeeper \
     && mv /opt/zookeeper/zookeeper-${zookeeper_ver}.jar /opt/zookeeper/lib \
-    && chmod +x /opt/zookeeper/docker-entrypoint.sh \
+    && chmod +x /opt/docker-entrypoint.sh \
     && rm -rf /tmp/zookeeper.tar.gz \
               /opt/zookeeper/build.xml \
               /opt/zookeeper/contrib \
