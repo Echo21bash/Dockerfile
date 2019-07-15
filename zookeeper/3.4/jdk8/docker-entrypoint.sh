@@ -73,4 +73,4 @@ fi
 
 MY_ID=$((ORD+1))
 
-create_config && create_jvm_props
+create_config && create_jvm_props && /opt/zookeeper/bin/zkServer.sh start-foreground
