@@ -65,7 +65,7 @@ function create_jvm_props() {
     echo "JVMFLAGS=\"-Xmx$HEAP -Xms$HEAP\"" >> $JAVA_ENV_FILE
 }
 
-if [[ -z $DOMAIN ]];then
+if [[ ! -z $DOMAIN ]];then
     if [[ $HOST =~ (.*)-([0-9]+)$ ]]; then
         NAME=${BASH_REMATCH[1]}
         ORD=${BASH_REMATCH[2]}
