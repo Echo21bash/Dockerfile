@@ -31,7 +31,7 @@ function print_servers() {
         if [[ ! -z $DOMAIN ]];then
             echo "server.$i=$NAME-$((i-1)).$DOMAIN:$SERVER_PORT:$ELECTION_PORT"
         else
-            echo "server.$i=$NAME$i:$SERVER_PORT:$ELECTION_PORT"
+            [[ $i = $ORD ]] && echo "server.$i=0.0.0.0:$SERVER_PORT:$ELECTION_PORT" || echo "server.$i=$NAME$i:$SERVER_PORT:$ELECTION_PORT"
         fi
     done
 }
