@@ -80,8 +80,8 @@ else
             [[ $i = 1 ]] && NAME=$aa || NAME=$NAME-$aa
         else
             break
-		fi
-		((i++))
+        fi
+        ((i++))
     done
     ORD=$(echo $NAME | grep -oE "[0-9]{1,}")
     NAME=$(echo $NAME | grep -oE "[a-z-]{1,}")
