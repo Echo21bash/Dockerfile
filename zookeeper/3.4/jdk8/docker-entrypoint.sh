@@ -28,7 +28,7 @@ SERVERS=${SERVERS:-1}
 function print_servers() {
     for (( i=1; i<=$SERVERS; i++ ))
     do
-        if [[ -z $DOMAIN ]];then
+        if [[ ! -z $DOMAIN ]];then
             echo "server.$i=$NAME-$((i-1)).$DOMAIN:$SERVER_PORT:$ELECTION_PORT"
         else
             echo "server.$i=$NAME$i:$SERVER_PORT:$ELECTION_PORT"
