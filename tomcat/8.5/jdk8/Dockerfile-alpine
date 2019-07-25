@@ -4,7 +4,7 @@ LABEL name="alpine3.9 JDK8 Tomcat8.5"
 
 ENV CATALINA_HOME=/opt/tomcat
 
-RUN && mkdir -p /opt/tomcat \
+RUN mkdir -p /opt/tomcat \
     && tomcat_down_url='http://mirrors.ustc.edu.cn/apache/tomcat/tomcat-8' \
     && tomcat_ver='8.5.41' \
     && echo Downloading apache-tomcat-${tomcat_ver}.tar.gz... \
