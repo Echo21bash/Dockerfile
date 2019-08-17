@@ -8,7 +8,7 @@ ENV REDIS_VERSION=5.0.5 \
 
 ADD docker-entrypoint.sh /opt/
 
-RUN apk add --no-cache make gcc linux-headers \
+RUN apk add --no-cache make gcc linux-headers build-deps \
     && mkdir -p /opt/redis/{etc,data} /tmp/redis \
     && redis_down_url=http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz \
     && echo Downloading redis-${REDIS_VERSION}.tar.gz... \
@@ -18,7 +18,8 @@ RUN apk add --no-cache make gcc linux-headers \
     && mv /tmp/redis/redis.conf /opt/redis/etc \
     && sed -i 's#^dir ./#dir /opt/redis/data#' /opt/etc/redis.conf \
     && chmod +x /opt/docker-entrypoint.sh \
-    && rm -rf /tmp/redis.tar.gz /tmp/redis
+    && apk del build-deps \
+    && rm -rf /tmp/redis.tar.gz /tmp/redis /var/cache/apk/*
 
 EXPOSE $REDIS_PORT
 
