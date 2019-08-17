@@ -1,0 +1,22 @@
+FROM rootww/alpine-glibc:3.9-2.29
+
+LABEL name="alpine redis"
+
+ENV REDIS_VERSION=5.0.5 \
+    REDIS_PORT=6379 \
+    REDIS_PASSWORD=passw0ord
+   
+ RUN apk add --no-cache make \
+    && mkdir -p /opt/redis/{etc,data} /tmp/redis \
+    && redis_down_url='http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz' \
+    && echo Downloading redis-${REDIS_VERSION}.tar.gz... \
+    && wget -q -O /tmp/redis.tar.gz ${redis_down_url} \
+    && tar zxf /tmp/redis.tar.gz --strip-components 1 -C /tmp/redis \
+    && cd /tmp/redis && make && make PREFIX=/opt/redis install \
+    && mv /tmp/redis/redis.conf /opt/redis/etc \
+    && sed -i 's#^dir ./#dir /opt/redis/data#' /opt/etc/redis.conf
+    && rm -rf /tmp/redis.tar.gz /tmp/redis
+
+EXPOSE $REDIS_PORT
+
+CMD ["/opt/redis/bin/redis-server","/opt/redis/etc/redis.conf"]
