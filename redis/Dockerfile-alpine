@@ -1,4 +1,4 @@
-FROM rootww/alpine-glibc:3.9-2.29
+FROM alpine:3.9
 
 LABEL name="alpine redis"
 
