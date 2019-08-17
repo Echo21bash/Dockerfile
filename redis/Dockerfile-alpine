@@ -8,7 +8,7 @@ ENV REDIS_VERSION=5.0.5 \
 
 ADD docker-entrypoint.sh /opt/
 
-RUN apk add --no-cache make \
+RUN apk add --no-cache make gcc \
     && mkdir -p /opt/redis/{etc,data} /tmp/redis \
     && redis_down_url=http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz \
     && echo Downloading redis-${REDIS_VERSION}.tar.gz... \
