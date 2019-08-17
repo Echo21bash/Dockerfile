@@ -16,7 +16,7 @@ RUN apk add --update --no-cache --virtual build-deps make gcc linux-headers musl
     && tar zxf /tmp/redis.tar.gz --strip-components 1 -C /tmp/redis \
     && cd /tmp/redis && make && cd /tmp/redis/src && make PREFIX=/opt/redis install \
     && mv /tmp/redis/redis.conf /opt/redis/etc \
-    && sed -i 's#^dir ./#dir /opt/redis/data#' /opt/etc/redis.conf \
+    && sed -i 's#^dir ./#dir /opt/redis/data#' /opt/redis/etc/redis.conf \
     && chmod +x /opt/docker-entrypoint.sh \
     && apk del build-deps \
     && rm -rf /tmp/redis.tar.gz /tmp/redis /var/cache/apk/*
