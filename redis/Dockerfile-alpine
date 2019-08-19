@@ -5,7 +5,11 @@ LABEL name="alpine redis"
 ENV PATH=/opt/redis/bin:$PATH \
     REDIS_VERSION=5.0.5 \
     REDIS_PORT=6379 \
-    REDIS_PASSWORD=passw0ord
+    REDIS_PASSWORD=passw0ord \
+    REDIS_RUN_MODE=standard
+    REDIS_MASTER_HOST="" \
+    REDIS_MASTER_PORT_NUMBER="6379" \
+    REDIS_MASTER_PASSWORD="passw0ord"
 
 ADD docker-entrypoint.sh /opt/
 
