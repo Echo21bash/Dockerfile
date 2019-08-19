@@ -2,7 +2,8 @@ FROM rootww/alpine-glibc:3.9-2.29
 
 LABEL name="alpine redis"
 
-ENV REDIS_VERSION=5.0.5 \
+ENV PATH=/opt/redis/bin:$PATH \
+    REDIS_VERSION=5.0.5 \
     REDIS_PORT=6379 \
     REDIS_PASSWORD=passw0ord
 
