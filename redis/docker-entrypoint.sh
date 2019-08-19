@@ -1,6 +1,7 @@
 #!/bin/sh
 
 #conf redis
+sed -i 's#^dir ./#dir /opt/redis/data#' /opt/redis/etc/redis.conf
 sed -i "s/# requirepass foobared/requirepass ${REDIS_PASSWORD}/" /opt/redis/etc/redis.conf
 sed -i 's/appendonly no/appendonly yes/' /opt/redis/etc/redis.conf
 if [ $REDIS_RUN_MODE = cluster ];then
