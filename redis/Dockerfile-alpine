@@ -26,5 +26,3 @@ EXPOSE $REDIS_PORT
 WORKDIR /opt
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
-
-CMD ["redis/bin/redis-server","redis/etc/redis.conf"]
