@@ -5,4 +5,5 @@
     REDIS_PASSWORD=passw0ord
     REDIS_RUN_MODE=standard 可选REDIS_RUN_MODE=cluster 
     REDIS_MASTER_PASSWORD="passw0ord"
+    MAX_MEMORY=100mb
 ```
