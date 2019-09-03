@@ -2,15 +2,17 @@ FROM php:5.5.30-apache
 
 MAINTAINER hebaodanroot
 
+ENV usvn_ver=1.0.7
+
 RUN apt-get -y update
 
 RUN apt-get install -y wget subversion libapache2-svn libapache2-mod-encoding sqlite3
 
 RUN \
         cd /usr/local/src && \
-        wget "https://github.com/usvn/usvn/archive/1.0.7.tar.gz" -O usvn-1.0.7.tar.gz && \
-        tar zxvf usvn-1.0.7.tar.gz && \
-        chown -R www-data:www-data /usr/local/src/usvn-1.0.7 && \
+        wget "https://github.com/usvn/usvn/archive/${usvn_ver}.tar.gz" -O usvn-${usvn_ver}.tar.gz && \
+        tar zxvf usvn-${usvn_ver}.tar.gz && \
+        chown -R www-data:www-data /usr/local/src/${usvn_ver} && \
 	rm -rf /var/www/html
 
 RUN \
