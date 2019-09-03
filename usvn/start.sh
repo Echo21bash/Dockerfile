@@ -1,40 +1,12 @@
 #!/bin/sh
 
 cd /
-
-if [ ! -e "/var/lib/svn/config" ]; then
-	mkdir /var/lib/svn/config
-	chown www-data:www-data /var/lib/svn/config
-fi
-rm -rf /usr/local/src/usvn-1.0.7/config
-ln -s /var/lib/svn/config /usr/local/src/usvn-1.0.7/config
-if [ ! -e "/var/lib/svn/files" ]; then
-	mkdir /var/lib/svn/files
-	chown www-data:www-data /var/lib/svn/files
-fi
-ln -s /var/lib/svn/files /usr/local/src/usvn-1.0.7/files
-
-if [ "x${USVN_SUBDIR}" = "x" ]; then
-	rm -rf /var/www/html
-	ln -s /usr/local/src/usvn-1.0.7/public /var/www/html
-else
-
-	mkdir -p /var/www/html${USVN_SUBDIR}
-	chown www-data:www-data /var/www/html${USVN_SUBDIR}
-	cd /var/www/html${USVN_SUBDIR}
-	cd ../
-	rmdir ./*
-	ln -s /usr/local/src/usvn-1.0.7/public /var/www/html${USVN_SUBDIR}
-fi
-
-cd /
-
 # apache设置
 cat << EOF > /etc/apache2/sites-available/000-default.conf
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/html
-        <Directory /var/www/html>
+        DocumentRoot /opt/usvn/public
+        <Directory /opt/usvn/public>
                 AllowOverride all
                 Options -MultiViews
                 Order Deny,Allow
@@ -51,16 +23,16 @@ cat << EOF > /etc/apache2/mods-enabled/dav_svn.conf
 	ErrorDocument 404 default
 	DAV svn
 	Require valid-user
-	SVNParentPath /usr/local/src/usvn-1.0.7/files/svn
+	SVNParentPath /opt/usvn/files/svn
 	SVNListParentPath off
 	AuthType Basic
 	AuthName "USVN"
-	AuthUserFile /usr/local/src/usvn-1.0.7/files/htpasswd
-	AuthzSVNAccessFile /usr/local/src/usvn-1.0.7/files/authz
+	AuthUserFile /opt/usvn/files/htpasswd
+	AuthzSVNAccessFile /opt/usvn/files/authz
 </Location>
 EOF
 
-cat << EOF > /usr/local/src/usvn-1.0.7/public/.htaccess
+cat << EOF > /opt/usvn/public/.htaccess
 <Files *.ini>
 Order Allow,Deny
 Deny from all
@@ -77,7 +49,7 @@ RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]
 EOF
 
-chown www-data:www-data /usr/local/src/usvn-1.0.7/public/.htaccess
+chown www-data:www-data /opt/usvn/public/.htaccess
 
 a2enmod rewrite
 /etc/init.d/apache2 restart
