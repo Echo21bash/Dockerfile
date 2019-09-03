@@ -2,7 +2,7 @@ FROM php:5.5.30-apache
 
 MAINTAINER hebaodanroot
 
-ENV usvn_ver=1.0.7
+ENV usvn_ver=1.0.8
 
 RUN apt-get -y update
 
