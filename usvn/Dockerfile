@@ -2,7 +2,8 @@ FROM php:5.5.30-apache
 
 MAINTAINER hebaodanroot
 
-ENV usvn_ver=1.0.8
+ENV usvn_ver=1.0.8 \
+    USVN_SUBDIR=
 
 RUN apt-get -y update
 
