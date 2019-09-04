@@ -1,8 +1,18 @@
 #!/bin/sh
 
 cd /
-rm -rf /var/www/html
-ln -s /opt/usvn/public /var/www/html
+if [ "x${USVN_SUBDIR}" = "x" ]; then
+	rm -rf /var/www/html
+	ln -s /opt/usvn/public /var/www/html
+else
+	mkdir -p /var/www/html${USVN_SUBDIR}
+	chown www-data:www-data /var/www/html${USVN_SUBDIR}
+	cd /var/www/html${USVN_SUBDIR}
+	cd ../
+	rmdir ./*
+	ln -s /opt/usvn/public /var/www/html${USVN_SUBDIR}
+fi
+
 # apache设置
 cat << EOF > /etc/apache2/sites-available/000-default.conf
 <VirtualHost *:80>
