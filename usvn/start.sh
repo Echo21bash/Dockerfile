@@ -1,5 +1,5 @@
 #!/bin/sh
-
+ln -s /opt/usvn/public /var/www/html
 cd /
 # apache设置
 cat << EOF > /etc/apache2/sites-available/000-default.conf
