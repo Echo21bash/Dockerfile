@@ -1,6 +1,8 @@
 #!/bin/sh
-ln -s /opt/usvn/public /var/www/html
+
 cd /
+rm -rf /var/www/html
+ln -s /opt/usvn/public /var/www/html
 # apache设置
 cat << EOF > /etc/apache2/sites-available/000-default.conf
 <VirtualHost *:80>
