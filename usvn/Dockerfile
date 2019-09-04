@@ -9,8 +9,8 @@ RUN apt-get -y update
 RUN apt-get install -y wget subversion libapache2-svn libapache2-mod-encoding sqlite3
 
 RUN  cd /tmp && \
-     wget "https://github.com/usvn/usvn/archive/${usvn_ver}.tar.gz" -O usvn-${usvn_ver}.tar.gz && \
-     tar zxvf usvn-${usvn_ver}.tar.gz && \
+     wget -q "https://github.com/usvn/usvn/archive/${usvn_ver}.tar.gz" -O usvn-${usvn_ver}.tar.gz && \
+     tar zxf usvn-${usvn_ver}.tar.gz && \
      mv /tmp/usvn-${usvn_ver}/src /opt/usvn && \
      chown -R www-data:www-data /opt/usvn && \
      apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
