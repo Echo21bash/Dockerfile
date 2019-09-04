@@ -5,8 +5,8 @@ cd /
 cat << EOF > /etc/apache2/sites-available/000-default.conf
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
-        DocumentRoot /opt/usvn/public
-        <Directory /opt/usvn/public>
+        DocumentRoot /opt/usvn
+        <Directory /opt/usvn>
                 AllowOverride all
                 Options -MultiViews
                 Order Deny,Allow
