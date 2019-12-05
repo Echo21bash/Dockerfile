@@ -54,7 +54,7 @@ function create_config() {
         print_servers >> $CONFIG_FILE
         #判断有状态还是无状态
         [[ ! -z $DOMAIN ]] && MY_ID=$((ORD+1)) || MY_ID=$ORD
-        echo $MY_ID >> $ID_FILE
+        echo $MY_ID > $ID_FILE
     fi
     cat $CONFIG_FILE >&2
 }
