@@ -4,7 +4,7 @@ BROKER_ID=${BROKER_ID:-}
 KAFKA_DATA_DIR=${KAFKA_DATA_DIR:-/opt/kafka/data}
 ZK_CONNECT=${ZK_CONNECT:-localhost:2181}
 KAFKA_HEAP_OPTS=${KAFKA_HEAP_OPTS:--Xmx1G -Xms1G}
-KAFKA_OPTS=${KAFKA_OPTS:-}
+KAFKA_OTHER_OPTS=${KAFKA_OTHER_OPTS:-}
 
 updata_config(){
 	if [[ -z $BROKER_ID ]];then
@@ -26,4 +26,4 @@ updata_config(){
 
 updata_config
 
-/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties ${KAFKA_OPTS}
+/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties ${KAFKA_OTHER_OPTS}
