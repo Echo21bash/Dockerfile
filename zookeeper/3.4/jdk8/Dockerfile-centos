@@ -2,7 +2,8 @@ FROM rootww/java:8u181-centos
 
 LABEL name="centos7 JDK8 Zookeeper3.4"
 
-RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
+RUN yum install -y nc \
+	&& mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && zookeeper_down_url='https://mirrors.huaweicloud.com/apache/zookeeper' \
     && zookeeper_ver=3.4.14 \
     && echo Downloading zookeeper-${zookeeper_ver}.tar.gz... \
