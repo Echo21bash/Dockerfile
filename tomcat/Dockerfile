@@ -1,17 +1,16 @@
-FROM rootww/java:8u181-alpine
+FROM rootww/java:8u181-centos-7.5
 
-LABEL name="alpine3.9 JDK8 Tomcat8.5"
+LABEL name="CentOS7 JDK8 Tomcat8.5"
 
 ENV CATALINA_HOME=/opt/tomcat
 
-RUN mkdir -p /opt/tomcat \
+RUN mkdir /opt/tomcat \
     && tomcat_down_url='http://mirrors.ustc.edu.cn/apache/tomcat/tomcat-8' \
     && tomcat_ver='8.5.41' \
     && echo Downloading apache-tomcat-${tomcat_ver}.tar.gz... \
-    && wget -q -O /tmp/tomcat.tar.gz ${tomcat_down_url}/v${tomcat_ver}/bin/apache-tomcat-${tomcat_ver}.tar.gz \
+    && curl -Ls -o /tmp/tomcat.tar.gz ${tomcat_down_url}/v${tomcat_ver}/bin/apache-tomcat-${tomcat_ver}.tar.gz \
     && tar zxf /tmp/tomcat.tar.gz --strip-components 1 -C /opt/tomcat \
     && rm -rf /tmp/tomcat.tar.gz
-
 
 #Tomcat
 RUN echo Configuring tomcat... \

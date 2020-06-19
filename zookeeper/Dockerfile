@@ -1,12 +1,13 @@
-FROM rootww/java:8u181-alpine
+FROM rootww/java:8u181-centos-7.5
 
-LABEL name="alpine3.9 JDK8 Zookeeper3.4"
+LABEL name="centos7 JDK8 Zookeeper3.4"
 
-RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
+RUN yum install -y nc \
+	&& mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && zookeeper_down_url='https://mirrors.huaweicloud.com/apache/zookeeper' \
     && zookeeper_ver=3.4.14 \
     && echo Downloading zookeeper-${zookeeper_ver}.tar.gz... \
-    && wget -q -O /tmp/zookeeper.tar.gz ${zookeeper_down_url}/zookeeper-${zookeeper_ver}/zookeeper-${zookeeper_ver}.tar.gz \
+    && curl -Ls -o /tmp/zookeeper.tar.gz ${zookeeper_down_url}/zookeeper-${zookeeper_ver}/zookeeper-${zookeeper_ver}.tar.gz \
     && tar zxf /tmp/zookeeper.tar.gz --strip-components 1 -C /opt/zookeeper \
     && mv /opt/zookeeper/zookeeper-${zookeeper_ver}.jar /opt/zookeeper/lib \
     && rm -rf /tmp/zookeeper.tar.gz \
@@ -20,7 +21,7 @@ RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
               /opt/zookeeper/src \
               /opt/zookeeper/zookeeper-* \
               /opt/zookeeper/recipe
-
+              
 ADD docker-entrypoint.sh /opt/zookeeper/bin/docker-entrypoint.sh
 ADD zookeeper-ready /opt/zookeeper/bin/zookeeper-ready
 
