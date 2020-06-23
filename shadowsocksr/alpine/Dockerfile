@@ -1,4 +1,4 @@
-FROM centos:7.5.1804
+FROM alpine
 
 ENV SERVER_ADDR=0.0.0.0 \
     SERVER_PORT=8388 \
@@ -12,8 +12,7 @@ ENV SERVER_ADDR=0.0.0.0 \
 
 ADD docker-entrypoint.sh /opt
 
-RUN curl -sL -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo \
-	&& yum install -y libsodium \
+RUN apk --no-cache add python libsodium curl \
     && curl -L -o /tmp/shadowsocksr-3.2.2.tar.gz https://github.com/shadowsocksrr/shadowsocksr/archive/3.2.2.tar.gz \
     && tar zxf /tmp/shadowsocksr-3.2.2.tar.gz -C /tmp \
     && mv /tmp/shadowsocksr-3.2.2/shadowsocks /usr/local/ \
