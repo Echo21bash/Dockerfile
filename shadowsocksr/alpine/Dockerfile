@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.10
 
 ENV SERVER_ADDR=0.0.0.0 \
     SERVER_PORT=8388 \
