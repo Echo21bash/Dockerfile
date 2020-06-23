@@ -4,7 +4,7 @@
     2、源码来自https://github.com/shadowsocksrr/shadowsocksr
 以server方式启动
 ----
-    docker run --name ssr-server -d -p 8388:8388 -e SERVER_TYPE=server rootww/shadowsocksr:latest
+    docker run --name ssr-server -itd -p 8388:8388 -e SERVER_TYPE=server rootww/shadowsocksr:latest
     可以通过变量修改默认配置默认值如下
     SERVER_PORT=8388
     PASSWORD=passw0ord
@@ -15,7 +15,7 @@
     TIMEOUT=300
 以client方式启动
 ----
-    docker run --name ssr-client -d -p 1080:1080 -v shadowsocksr.json:/etc/shadowsocksr.json -e SERVER_TYPE=client rootww/shadowsocksr:latest
+    docker run --name ssr-client -itd -p 1080:1080 -v shadowsocksr.json:/etc/shadowsocksr.json -e SERVER_TYPE=client rootww/shadowsocksr:latest
     客户端启动需要JSON格式的配置文件
     {
     "server": "z0403.zionnode.com",
