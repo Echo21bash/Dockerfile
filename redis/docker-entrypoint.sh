@@ -1,5 +1,6 @@
 #!/bin/sh
 
+REDIS_OTHER_OPTS=${REDIS_OTHER_OPTS:-}
 #conf redis
 sed -i "s/^bind.*/bind 0.0.0.0/" /opt/redis/etc/redis.conf
 sed -i 's#^dir ./#dir /opt/redis/data#' /opt/redis/etc/redis.conf
@@ -16,5 +17,5 @@ if [ $REDIS_RUN_MODE = cluster ];then
   sed -i 's/# cluster-node-timeout 15000/cluster-node-timeout 15000/' /opt/redis/etc/redis.conf
 fi
 #start redis
-/opt/redis/bin/redis-server /opt/redis/etc/redis.conf
+/opt/redis/bin/redis-server /opt/redis/etc/redis.conf ${REDIS_OTHER_OPTS}
 
