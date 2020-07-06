@@ -21,7 +21,8 @@ RUN yum install -y make gcc \
     && cd /tmp/redis && make && cd /tmp/redis/src && make PREFIX=/opt/redis install \
     && mv /tmp/redis/redis.conf /opt/redis/etc \
     && chmod +x /opt/docker-entrypoint.sh \
-    && rm -rf /tmp/redis.tar.gz /tmp/redis
+    && rm -rf /tmp/redis.tar.gz /tmp/redis \
+    && yum remove -y make gcc && yum clean all 
 
 EXPOSE $REDIS_PORT
 
