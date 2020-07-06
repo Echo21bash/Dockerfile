@@ -14,7 +14,7 @@ ADD docker-entrypoint.sh /opt/
 
 RUN yum install -y make gcc \
     && mkdir -p /opt/redis/{etc,data} /tmp/redis \
-    && redis_down_url=http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz \
+    && redis_down_url=https://mirrors.huaweicloud.com/redis/redis-${REDIS_VERSION}.tar.gz \
     && echo Downloading redis-${REDIS_VERSION}.tar.gz... \
     && curl -sl -o /tmp/redis.tar.gz ${redis_down_url} \
     && tar zxf /tmp/redis.tar.gz --strip-components 1 -C /tmp/redis \
