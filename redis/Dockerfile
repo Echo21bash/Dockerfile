@@ -12,7 +12,7 @@ ENV PATH=/opt/redis/bin:$PATH \
 
 ADD docker-entrypoint.sh /opt/
 
-RUN yum install -y make gcc \
+RUN yum install -y make gcc initscripts \
     && mkdir -p /opt/redis/{etc,data} /tmp/redis \
     && redis_down_url=https://mirrors.huaweicloud.com/redis/redis-${REDIS_VERSION}.tar.gz \
     && echo Downloading redis-${REDIS_VERSION}.tar.gz... \
