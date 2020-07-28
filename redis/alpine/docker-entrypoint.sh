@@ -18,10 +18,10 @@ if [ ${REDIS_RUN_MODE} = cluster ];then
 fi
 #updata redis cluster pod-ip
 if [[ -f /opt/redis/data/nodes-6379.conf ]];then
-	if [[ -z ${POD_IP} ]];then
-		POD_IP=$(ip addr | grep -E 'eth[0-9a-z]{1,3}|eno[0-9a-z]{1,3}|ens[0-9a-z]{1,3}|enp[0-9a-z]{1,3}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v  "^255\.|\.255$|^127\.|^0\." | head -n 1)
-	fi
-	sed -i -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/${POD_IP}/" /opt/redis/data/nodes-6379.conf
+  if [[ -z ${POD_IP} ]];then
+    POD_IP=$(ip addr | grep -E 'eth[0-9a-z]{1,3}|eno[0-9a-z]{1,3}|ens[0-9a-z]{1,3}|enp[0-9a-z]{1,3}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v  "^255\.|\.255$|^127\.|^0\." | head -n 1)
+  fi
+  sed -i -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/${POD_IP}/" /opt/redis/data/nodes-6379.conf
 fi
 #start redis
 /opt/redis/bin/redis-server /opt/redis/etc/redis.conf ${REDIS_OTHER_OPTS}
