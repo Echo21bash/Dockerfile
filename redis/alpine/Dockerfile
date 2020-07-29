@@ -3,12 +3,7 @@ FROM rootww/alpine-glibc:3.9-2.29
 LABEL name="alpine redis"
 
 ENV PATH=/opt/redis/bin:$PATH \
-    REDIS_VERSION=5.0.5 \
-    REDIS_PORT=6379 \
-    REDIS_PASSWORD=passw0ord \
-    REDIS_RUN_MODE=standard \
-    REDIS_MASTER_PASSWORD="passw0ord" \
-    MAX_MEMORY=100mb
+    REDIS_VERSION=5.0.5
 
 ADD docker-entrypoint.sh /opt/
 
@@ -24,8 +19,8 @@ RUN apk add --update --no-cache --virtual build-deps make gcc linux-headers musl
     && apk del build-deps \
     && rm -rf /tmp/redis.tar.gz /tmp/redis /var/cache/apk/*
 
-EXPOSE $REDIS_PORT
+EXPOSE 6379
 
-WORKDIR /opt
+WORKDIR /opt/redis
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]

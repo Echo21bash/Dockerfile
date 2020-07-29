@@ -3,12 +3,7 @@ FROM centos:7.5.1804
 LABEL name="CentOS7 redis"
 
 ENV PATH=/opt/redis/bin:$PATH \
-    REDIS_VERSION=5.0.9 \
-    REDIS_PORT=6379 \
-    REDIS_PASSWORD=passw0ord \
-    REDIS_RUN_MODE=standard \
-    REDIS_MASTER_PASSWORD="passw0ord" \
-    MAX_MEMORY=100mb
+    REDIS_VERSION=5.0.9
 
 ADD docker-entrypoint.sh /opt/
 
@@ -24,8 +19,8 @@ RUN yum install -y make gcc initscripts \
     && rm -rf /tmp/redis.tar.gz /tmp/redis \
     && yum remove -y make gcc && yum clean all 
 
-EXPOSE $REDIS_PORT
+EXPOSE 6379
 
-WORKDIR /opt
+WORKDIR /opt/redis
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
