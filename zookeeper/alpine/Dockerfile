@@ -2,6 +2,8 @@ FROM rootww/java:8u181-alpine-3.9
 
 LABEL name="alpine3.9 JDK8 Zookeeper3.4"
 
+ENV PATH=/opt/zookeeper/bin:$PATH
+
 RUN mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && zookeeper_down_url='https://mirrors.huaweicloud.com/apache/zookeeper' \
     && zookeeper_ver=3.4.14 \
@@ -25,8 +27,7 @@ ADD docker-entrypoint.sh /opt/zookeeper/bin/docker-entrypoint.sh
 ADD zookeeper-ready /opt/zookeeper/bin/zookeeper-ready
 
 RUN chmod +x /opt/zookeeper/bin/docker-entrypoint.sh \
-    && chmod +x /opt/zookeeper/bin/zookeeper-ready \
-    && ln -s /opt/zookeeper/bin/* /usr/bin
+    && chmod +x /opt/zookeeper/bin/zookeeper-ready
 
 WORKDIR /opt/zookeeper
 

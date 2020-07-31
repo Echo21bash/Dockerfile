@@ -2,6 +2,8 @@ FROM rootww/java:8u181-centos-7.5
 
 LABEL name="centos7 JDK8 Zookeeper3.4"
 
+ENV PATH=/opt/zookeeper/bin:$PATH
+
 RUN yum install -y nc \
 	&& mkdir -p /opt/zookeeper/data /opt/zookeeper/logs \
     && zookeeper_down_url='https://mirrors.huaweicloud.com/apache/zookeeper' \
@@ -26,8 +28,7 @@ ADD docker-entrypoint.sh /opt/zookeeper/bin/docker-entrypoint.sh
 ADD zookeeper-ready /opt/zookeeper/bin/zookeeper-ready
 
 RUN chmod +x /opt/zookeeper/bin/docker-entrypoint.sh \
-    && chmod +x /opt/zookeeper/bin/zookeeper-ready \
-    && ln -s /opt/zookeeper/bin/* /usr/bin
+    && chmod +x /opt/zookeeper/bin/zookeeper-ready
 
 WORKDIR /opt/zookeeper
 
