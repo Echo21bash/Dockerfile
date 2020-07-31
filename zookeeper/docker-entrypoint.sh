@@ -23,10 +23,10 @@ SNAP_RETAIN_COUNT=${SNAP_RETAIN_COUNT:-3}
 PURGE_INTERVAL=${PURGE_INTERVAL:-0}
 MIN_SESSION_TIMEOUT=${MIN_SESSION_TIMEOUT:-$((TICK_TIME*2))}
 MAX_SESSION_TIMEOUT=${MAX_SESSION_TIMEOUT:-$((TICK_TIME*20))}
-SERVERS=${SERVERS:-1}
+SERVERS_NUM=${SERVERS_NUM:-1}
 
 function print_servers() {
-    for (( i=1; i<=$SERVERS; i++ ))
+    for (( i=1; i<=$SERVERS_NUM; i++ ))
     do
         if [[ ! -z $DOMAIN ]];then
             echo "server.$i=$NAME-$((i-1)).$DOMAIN:$SERVER_PORT:$ELECTION_PORT"
@@ -50,7 +50,7 @@ function create_config() {
     echo "maxSessionTimeout=$MAX_SESSION_TIMEOUT" >> $CONFIG_FILE
     echo "autopurge.snapRetainCount=$SNAP_RETAIN_COUNT" >> $CONFIG_FILE
     echo "autopurge.purgeInteval=$PURGE_INTERVAL" >> $CONFIG_FILE
-    if [ $SERVERS -gt 1 ]; then
+    if [ $SERVERS_NUM -gt 1 ]; then
         print_servers >> $CONFIG_FILE
         #判断有状态还是无状态
         [[ ! -z $DOMAIN ]] && MY_ID=$((ORD+1)) || MY_ID=$ORD
