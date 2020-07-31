@@ -1,1 +1,1 @@
-Base on CentOS7/alpine3.9
+默认基于CentOS7
