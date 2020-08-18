@@ -26,4 +26,4 @@ updata_config(){
 
 updata_config
 
-/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties ${KAFKA_OTHER_OPTS}
+exec "$@" ${KAFKA_OTHER_OPTS}

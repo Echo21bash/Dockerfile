@@ -19,3 +19,5 @@ RUN chmod +x /opt/kafka/bin/docker-entrypoint.sh
 WORKDIR /opt/kafka
 
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+CMD ["kafka-server-start.sh","/opt/kafka/config/server.properties"]

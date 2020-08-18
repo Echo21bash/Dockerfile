@@ -24,3 +24,5 @@ EXPOSE 6379
 WORKDIR /opt/redis
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
+
+CMD ["redis-server","/opt/redis/etc/redis.conf"]

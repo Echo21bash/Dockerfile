@@ -25,4 +25,5 @@ if [[ -f /opt/redis/data/nodes-6379.conf ]];then
 	sed -i -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/${POD_IP}/" /opt/redis/data/nodes-6379.conf
 fi
 #start redis
-/opt/redis/bin/redis-server /opt/redis/etc/redis.conf ${REDIS_OTHER_OPTS}
+exec "$@" ${REDIS_OTHER_OPTS}
+
