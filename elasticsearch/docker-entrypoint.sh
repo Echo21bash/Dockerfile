@@ -4,11 +4,9 @@ ES_CLUSTER_NAME=${ES_CLUSTER_NAME:-}
 ES_CLUSTER_HOSTS=${ES_CLUSTER_HOSTS:-}
 ES_NODE_NAME=${ES_NODE_NAME:-}
 ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms512m -Xmx512m}
-XPACK_SECURITY_ENABLED=${XPACK_SECURITY_ENABLED:-}
-
+ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
 run_env(){
-	useradd elasticsearch
-	chown -R elasticsearch.elasticsearch /opt/elasticsearch
+
 	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
 }
@@ -19,18 +17,9 @@ config_set(){
 	[[ -n ${ES_CLUSTER_NAME} ]] && sed -i "s/#cluster.name:.*/cluster.name: ${ES_CLUSTER_NAME}/" /opt/elasticsearch/config/elasticsearch.yml
 	[[ -n ${ES_CLUSTER_HOSTS} ]] && sed -i "s/#discovery.zen.ping.unicast.hosts:.*/discovery.zen.ping.unicast.hosts: ${ES_CLUSTER_HOSTS}/" /opt/elasticsearch/config/elasticsearch.yml
 	sed -i "s/#network.host:.*/network.host: 0.0.0.0/" /opt/elasticsearch/config/elasticsearch.yml
-	if [[ x${XPACK_SECURITY_ENABLED} = 'xtrue' ]];then
-		echo -e "xpack.security.enabled: true">>/opt/elasticsearch/config/elasticsearch.yml
-		echo -e "xpack.license.self_generated.type: basic">>/opt/elasticsearch/config/elasticsearch.yml
-		echo -e "xpack.security.transport.ssl.enabled: true">>/opt/elasticsearch/config/elasticsearch.yml
-		echo -e "xpack.security.transport.ssl.verification_mode: certificate">>/opt/elasticsearch/config/elasticsearch.yml
-		echo -e "xpack.security.transport.ssl.keystore.path: elastic-certificates.p12">>/opt/elasticsearch/config/elasticsearch.yml
-		echo -e "xpack.security.transport.ssl.truststore.path: elastic-certificates.p12">>/opt/elasticsearch/config/elasticsearch.yml
-
-	fi
 
 }
 
 run_env
 config_set
-exec gosu elasticsearch "$@"
+exec gosu elasticsearch "$@" ${ES_OTHER_OPTS}
