@@ -12,6 +12,6 @@ RUN apk add --no-cache bash tzdata \
     && ln -snf /bin/bash /bin/sh \
     && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib \
     && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
-    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apk del tzdata \
     && rm -rf glibc.apk glibc-bin.apk /var/cache/apk/*

@@ -22,8 +22,8 @@ RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
     && curl -L -s -o /tmp/jdk.tar.gz ${java_down_url} \
     && mkdir /opt/{java,jar} \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
+    && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /tmp/jdk.tar.gz \
-    && rm -rf /etc/localtime && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /opt/java/*src.zip \
               /opt/java/lib/missioncontrol \
               /opt/java/lib/visualvm \

@@ -7,7 +7,7 @@ ENV PATH=/opt/redis/bin:$PATH \
 
 ADD docker-entrypoint.sh /opt/
 
-RUN yum install -y make gcc initscripts \
+RUN yum install -y make gcc iproute\
     && mkdir -p /opt/redis/{etc,data} /tmp/redis \
     && redis_down_url=https://mirrors.huaweicloud.com/redis/redis-${REDIS_VERSION}.tar.gz \
     && echo Downloading redis-${REDIS_VERSION}.tar.gz... \
@@ -16,8 +16,11 @@ RUN yum install -y make gcc initscripts \
     && cd /tmp/redis && make && cd /tmp/redis/src && make PREFIX=/opt/redis install \
     && mv /tmp/redis/redis.conf /opt/redis/etc \
     && chmod +x /opt/docker-entrypoint.sh \
+    && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /tmp/redis.tar.gz /tmp/redis \
-    && yum remove -y make gcc && yum clean all 
+    && rpm -e --nodeps make gcc cpp glibc-devel glibc-headers kernel-headers libgomp libmpc mpfr \
+    && yum clean all \
+    && rm -rf /var/cache/yum
 
 EXPOSE 6379
 
