@@ -6,7 +6,8 @@ ES_NODE_NAME=${ES_NODE_NAME:-}
 ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms512m -Xmx512m}
 ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
 run_env(){
-
+	useradd elasticsearch
+	chown -R elasticsearch.elasticsearch /opt/elasticsearch
 	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
 }
