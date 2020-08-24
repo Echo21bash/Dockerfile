@@ -23,6 +23,7 @@ RUN echo Downloading jdk-8u181-linux-x64.tar.gz... \
     && mkdir /opt/{java,jar} \
     && tar zxf /tmp/jdk.tar.gz --strip-components 1 -C /opt/java \
     && ln -sfn /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && sed -i '/permission java.util.PropertyPermission "java.vm.name", "read";/a\        permission java.io.FilePermission "<<ALL FILES>>","read,write,delete";' ${JAVA_HOME}/jre/lib/security/java.policy \
     && rm -rf /tmp/jdk.tar.gz \
     && rm -rf /opt/java/*src.zip \
               /opt/java/lib/missioncontrol \
