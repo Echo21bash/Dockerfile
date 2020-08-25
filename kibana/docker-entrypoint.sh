@@ -1,26 +1,18 @@
 #!/bin/bash
 
-ES_ES_CLUSTER_NAME=${ES_CLUSTER_NAME:-}
-ES_ES_CLUSTER_HOSTS=${ES_CLUSTER_HOSTS:-}
-ES_ES_NODE_NAME=${ES_NODE_NAME:-}
-ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms512m -Xmx512m}
-XPACK_SECURITY_ENABLED=${XPACK_SECURITY_ENABLED:-}
-run_env(){
-	useradd elasticsearch
-	chown -R elasticsearch.elasticsearch /opt/elasticsearch
-	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
-
-}
+##可用环境变量
+ES_URL=${ES_URL:-}
+ES_USERNAME=${ES_USERNAME:-}
+ES_PASSWORD=${ES_PASSWORD:-}
 
 config_set(){
 
-	[[ -n ${ES_NODE_NAME} ]] && sed -i "s/#node.name:.*/node.name: ${ES_NODE_NAME}/" /opt/elasticsearch/config/elasticsearch.yml
-	[[ -n ${ES_CLUSTER_NAME} ]] && sed -i "s/#cluster.name:.*/cluster.name: ${ES_CLUSTER_NAME}/" /opt/elasticsearch/config/elasticsearch.yml
-	[[ -n ${ES_CLUSTER_HOSTS} ]] && sed -i "s/#discovery.zen.ping.unicast.hosts:.*/discovery.zen.ping.unicast.hosts: ${ES_CLUSTER_HOSTS}/" /opt/elasticsearch/config/elasticsearch.yml
-	sed -i "s/#network.host:.*/network.host: 0.0.0.0/" /opt/elasticsearch/config/elasticsearch.yml
-	[[ x${XPACK_SECURITY_ENABLED} = 'xtrue' ]] && echo -e "xpack.security.enabled: true\nxpack.license.self_generated.type: basic\nxpack.security.transport.ssl.enabled: true" >>/opt/elasticsearch/config/elasticsearch.yml
+	sed -i "s/#server.host:.*/server.host: \"0\"/" /opt/kibana/config/kibana.yml
+	[[ -n ${ES_URL} ]] && sed -i "s!#elasticsearch.hosts:.*!elasticsearch.hosts: [${ES_URL}]!" /opt/kibana/config/kibana.yml
+	[[ -n ${ES_USERNAME} ]] && sed -i "s/#elasticsearch.username:.*/elasticsearch.username: ${ES_USERNAME}/" /opt/kibana/config/kibana.yml
+	[[ -n ${ES_PASSWORD} ]] && sed -i "s/#elasticsearch.password:.*/elasticsearch.password: ${ES_PASSWORD}/" /opt/kibana/config/kibana.yml
+
 }
 
-run_env
 config_set
-exec gosu elasticsearch "$@"
+exec "$@"
