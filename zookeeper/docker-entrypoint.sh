@@ -87,4 +87,6 @@ else
     NAME=$(echo $NAME | grep -oE "[a-z-]{1,}")
 fi
 
-create_config && create_jvm_props && /opt/zookeeper/bin/zkServer.sh start-foreground
+create_config
+create_jvm_props
+exec "$@"

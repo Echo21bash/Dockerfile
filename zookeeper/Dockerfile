@@ -35,3 +35,5 @@ WORKDIR /opt/zookeeper
 EXPOSE 2181 2888 3888
 
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+CMD ["zkServer.sh","start-foreground"]
