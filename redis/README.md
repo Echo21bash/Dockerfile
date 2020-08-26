@@ -8,3 +8,4 @@
     REDIS_OTHER_OPTS=
 ```
 * 其中REDIS_OTHER_OPTS设置为redis-server其他可用参数
+* 健康检测脚本health-check
