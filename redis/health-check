@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [[ -n ${REDIS_PASSWORD} ]];then
+	OK=$(redis-cli -a ${REDIS_PASSWORD} ping  2>/dev/null)
+else
+	OK=$(redis-cli ping  2>/dev/null)
+fi
+if [[ "$OK" == "PONG" ]]; then
+	exit 0
+else
+	exit 1
+fi
