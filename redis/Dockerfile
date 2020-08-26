@@ -6,7 +6,7 @@ ENV PATH=/opt/redis/bin:$PATH \
     REDIS_VERSION=5.0.9
 
 RUN yum install -y make gcc iproute && \
-    mkdir -p /opt/redis/{etc,data} /tmp/redis \
+    mkdir -p /opt/redis/{etc,data} /tmp/redis && \
     redis_down_url=https://mirrors.huaweicloud.com/redis/redis-${REDIS_VERSION}.tar.gz && \
     echo Downloading redis-${REDIS_VERSION}.tar.gz... && \
     curl -sl -o /tmp/redis.tar.gz ${redis_down_url} && \
