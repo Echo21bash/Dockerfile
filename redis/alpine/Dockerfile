@@ -3,7 +3,7 @@ FROM rootww/alpine-glibc:3.9-2.29
 LABEL name="alpine redis"
 
 ENV PATH=/opt/redis/bin:$PATH \
-    REDIS_VERSION=5.0.5
+    REDIS_VERSION=5.0.9
 
 RUN apk add --update --no-cache --virtual build-deps make gcc linux-headers musl-dev && \
     mkdir -p /opt/redis/{etc,data} /tmp/redis && \
