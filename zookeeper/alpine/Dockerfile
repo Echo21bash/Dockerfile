@@ -1,4 +1,4 @@
-FROM rootww/java:8u181
+FROM rootww/java:8u181-alpine
 
 LABEL name="alpine3.9 JDK8 Zookeeper3.4"
 
