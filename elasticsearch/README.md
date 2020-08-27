@@ -7,4 +7,7 @@
 	ES_ES_NODE_NAME=${ES_NODE_NAME:-}
 	ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms1G -Xmx1G}
 	ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
+	示例
+        - name: ES_OTHER_OPTS
+          value: '-E cluster.routing.allocation.disk.threshold_enabled=false'
 	
