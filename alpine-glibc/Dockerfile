@@ -1,6 +1,6 @@
 FROM alpine:3.9
 
-ENV GLIBC_VERSION 2.29-r0
+ENV GLIBC_VERSION 2.29-r0 TZ=Asia/Shanghai
 
 #Download and install bash/glibc
 RUN apk add --no-cache bash tzdata \
@@ -13,6 +13,5 @@ RUN apk add --no-cache bash tzdata \
     && ln -snf /bin/bash /bin/sh \
     && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib \
     && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
-    && ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && apk del tzdata \
+    && ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && rm -rf glibc.apk glibc-bin.apk /var/cache/apk/*
