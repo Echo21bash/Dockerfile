@@ -12,3 +12,4 @@
 	ZK_CONNECT='192.168.0.1:2181,192.168.0.2:2181,192.169.0.3:2181'
 	KAFKA_HEAP_OPTS='-Xmx1G -Xms1G'
 	KAFKA_OTHER_OPTS='--override auto.create.topics.enable=false --override num.io.threads=8'
+	JMX_PORT=9999
