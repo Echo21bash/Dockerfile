@@ -32,7 +32,7 @@ config_set(){
 		((i++))
 	done
 	
-	sed -i "s?kafka.eagle.url=.*?kafka.eagle.url=jdbc:sqlite:/opt/kafka-eagle/db/ke.db?" ${KE_HOME}/conf/system-config.properties
+	sed -i "s?kafka.eagle.url=jdbc:sqlite:.*?kafka.eagle.url=jdbc:sqlite:/opt/kafka-eagle/db/ke.db?" ${KE_HOME}/conf/system-config.properties
 	cp ${KE_HOME}/conf/*.properties ${KE_HOME}/kms/webapps/ke/WEB-INF/classes/
 
 }
