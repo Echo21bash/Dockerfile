@@ -1,6 +1,6 @@
 FROM alpine:3.9
 
-ENV GLIBC_VERSION 2.29-r0 TZ=Asia/Shanghai
+ENV GLIBC_VERSION=2.29-r0 TZ=Asia/Shanghai
 
 #Download and install bash/glibc
 RUN apk add --no-cache bash tzdata \
