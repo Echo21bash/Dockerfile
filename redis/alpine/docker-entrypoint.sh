@@ -23,8 +23,17 @@ redis_conf(){
 		sed -i 's/# cluster-enabled yes/cluster-enabled yes/' /opt/redis/etc/redis.conf
 		sed -i 's/# cluster-config-file nodes-6379.conf/cluster-config-file nodes-6379.conf/' /opt/redis/etc/redis.conf
 		sed -i 's/# cluster-node-timeout 15000/cluster-node-timeout 15000/' /opt/redis/etc/redis.conf
+		#updata CLUSTER_ANNOUNCE_IP
+		if [[ -n ${REDIS_OTHER_OPTS} ]];then
+			CLUSTER_ANNOUNCE_IP=`echo ${REDIS_OTHER_OPTS} | grep -oE "cluster-announce-ip[\ ]{1,}[0-9\.]{1,}" | awk '{print$2}'`
+			if [[ -n ${CLUSTER_ANNOUNCE_IP} ]];then
+				if [[ -f /opt/redis/data/nodes-6379.conf ]];then
+					sed -i -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/${CLUSTER_ANNOUNCE_IP}/" /opt/redis/data/nodes-6379.conf
+				fi
+			fi
+		fi
 	fi
-	
+
 }
 
 redis_conf
