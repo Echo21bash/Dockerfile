@@ -3,7 +3,7 @@
 ```shell
     REDIS_PASSWORD=
     REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
-    REDIS_RUN_MODE=standard 可选cluster 
+    REDIS_RUN_MODE=standard 可选cluster
     MAX_MEMORY=100mb
     REDIS_OTHER_OPTS=
 ```

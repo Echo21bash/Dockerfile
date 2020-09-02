@@ -24,6 +24,7 @@ redis_conf(){
 		sed -i 's/# cluster-config-file nodes-6379.conf/cluster-config-file nodes-6379.conf/' /opt/redis/etc/redis.conf
 		sed -i 's/# cluster-node-timeout 15000/cluster-node-timeout 15000/' /opt/redis/etc/redis.conf
 	fi
+	
 }
 
 redis_conf
