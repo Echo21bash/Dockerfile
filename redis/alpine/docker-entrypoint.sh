@@ -26,11 +26,15 @@ redis_conf(){
 		#updata CLUSTER_ANNOUNCE_IP
 		if [[ -n ${REDIS_OTHER_OPTS} ]];then
 			CLUSTER_ANNOUNCE_IP=`echo ${REDIS_OTHER_OPTS} | grep -oE "cluster-announce-ip[\ ]{1,}[0-9\.]{1,}" | awk '{print$2}'`
-			if [[ -n ${CLUSTER_ANNOUNCE_IP} ]];then
-				if [[ -f /opt/redis/data/nodes-6379.conf ]];then
-					sed -i -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/${CLUSTER_ANNOUNCE_IP}/" /opt/redis/data/nodes-6379.conf
-				fi
+			if [[ -z ${CLUSTER_ANNOUNCE_IP} ]];then
+				CLUSTER_ANNOUNCE_IP=$(ip addr | grep -E 'eth[0-9a-z]{1,3}|eno[0-9a-z]{1,3}|ens[0-9a-z]{1,3}|enp[0-9a-z]{1,3}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v  "^255\.|\.255$|^127\.|^0\." | head -n 1)
 			fi
+		else
+			CLUSTER_ANNOUNCE_IP=$(ip addr | grep -E 'eth[0-9a-z]{1,3}|eno[0-9a-z]{1,3}|ens[0-9a-z]{1,3}|enp[0-9a-z]{1,3}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v  "^255\.|\.255$|^127\.|^0\." | head -n 1)
+		fi
+
+		if [[ -f /opt/redis/data/nodes-6379.conf ]];then
+			sed -i -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/${CLUSTER_ANNOUNCE_IP}/" /opt/redis/data/nodes-6379.conf
 		fi
 	fi
 
