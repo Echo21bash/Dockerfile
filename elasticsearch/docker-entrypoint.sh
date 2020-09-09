@@ -7,7 +7,7 @@ ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms1G -Xmx1G}
 ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
 run_env(){
 	useradd elasticsearch
-	chown -R elasticsearch.elasticsearch /opt/elasticsearch
+	chown  elasticsearch.elasticsearch /opt/elasticsearch
 	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
 }
