@@ -6,8 +6,6 @@ ES_NODE_NAME=${ES_NODE_NAME:-}
 ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms1G -Xmx1G}
 ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
 run_env(){
-	useradd elasticsearch
-	chown  elasticsearch.elasticsearch /opt/elasticsearch
 	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
 }
@@ -40,9 +38,9 @@ config_set(){
 	[[ -n ${ES_CLUSTER_NAME} ]] && sed -i "s/#cluster.name:.*/cluster.name: ${ES_CLUSTER_NAME}/" /opt/elasticsearch/config/elasticsearch.yml
 
 	sed -i "s/#network.host:.*/network.host: 0.0.0.0/" /opt/elasticsearch/config/elasticsearch.yml
-	echo "--------------------config-info--------------------"
+	echo "###############################config-info###############################"
 	cat /opt/elasticsearch/config/elasticsearch.yml | grep -v "^#"
-	echo "--------------------config-info--------------------"
+	echo "###############################config-info###############################"
 
 }
 

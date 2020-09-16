@@ -12,7 +12,9 @@ RUN mkdir -p /opt/elasticsearch/data /opt/elasticsearch/logs && \
     curl -Ls -o /usr/bin/gosu "https://github.com/tianon/gosu/releases/download/1.12/gosu-amd64" && \
     chmod a+x /usr/bin/gosu && \
     tar zxf /tmp/elasticsearch.tar.gz --strip-components 1 -C /opt/elasticsearch && \
-    rm -rf /tmp/elasticsearch.tar.gz
+    rm -rf /tmp/elasticsearch.tar.gz && \
+    adduser -d /opt/elasticsearch elasticsearch && \
+    chown -R elasticsearch.elasticsearch /opt/elasticsearch
 
 ADD docker-entrypoint.sh /opt/elasticsearch/bin/docker-entrypoint.sh
 
