@@ -18,7 +18,10 @@ RUN mkdir -p /opt/elasticsearch/data /opt/elasticsearch/logs && \
 
 ADD docker-entrypoint.sh /opt/elasticsearch/bin/docker-entrypoint.sh
 
-RUN chmod +x /opt/elasticsearch/bin/docker-entrypoint.sh
+ADD health-check /opt/elasticsearch/bin/health-check
+
+RUN chmod +x /opt/elasticsearch/bin/docker-entrypoint.sh && \
+    chmod +x /opt/elasticsearch/bin/health-check
 
 WORKDIR /opt/elasticsearch
 
