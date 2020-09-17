@@ -5,6 +5,7 @@ KAFKA_DATA_DIR=${KAFKA_DATA_DIR:-/opt/kafka/data}
 ZK_CONNECT=${ZK_CONNECT:-localhost:2181}
 KAFKA_HEAP_OPTS=${KAFKA_HEAP_OPTS:--Xmx1G -Xms1G}
 KAFKA_OTHER_OPTS=${KAFKA_OTHER_OPTS:-}
+KAFKA_JMX_PORT=${KAFKA_JMX_PORT:-9999}
 
 updata_config(){
 	if [[ -z $BROKER_ID ]];then
@@ -15,7 +16,7 @@ updata_config(){
 	else
 		sed -i "s/broker.id=0/broker.id=${BROKER_ID}/" /opt/kafka/config/server.properties
 	fi
-	sed -i "s@#listeners=PLAINTEXT://:9092@listeners=PLAINTEXT://:9092@" /opt/kafka/config/server.properties
+	sed -i "/exec/iexport JMX_PORT=${KAFKA_JMX_PORT}" /opt/kafka/bin/kafka-server-start.sh
 	sed -i "s@log.dirs=/tmp/kafka-logs@log.dirs=${KAFKA_DATA_DIR}@" /opt/kafka/config/server.properties
 	sed -i "s@zookeeper.connect=localhost:2181@zookeeper.connect=${ZK_CONNECT}@" /opt/kafka/config/server.properties
 	if [[ ${ZK_CONNECT} = 'localhost:2181' ]];then
