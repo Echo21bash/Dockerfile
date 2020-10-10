@@ -1,10 +1,11 @@
 FROM rootww/java:8u181-alpine
 
-ENV KE_HOME=/opt/kafka-eagle PATH=$PATH:/opt/kafka-eagle/bin EAGLE_VERSION=2.0.1
+ENV KE_HOME=/opt/kafka-eagle PATH=$PATH:/opt/kafka-eagle/bin EAGLE_VERSION=2.0.2
 
 RUN apk add gettext sqlite && \
     mkdir -p /opt/kafka-eagle/conf;cd /opt && \
-    wget -q https://github.com/smartloli/kafka-eagle-bin/archive/v${EAGLE_VERSION}.tar.gz && \
+    wget --timeout=30 https://download.fastgit.org/smartloli/kafka-eagle-bin/archive/v${EAGLE_VERSION}.tar.gz || \
+    wget --timeout=30 https://github.com/smartloli/kafka-eagle-bin/archive/v${EAGLE_VERSION}.tar.gz && \
     tar zxf v${EAGLE_VERSION}.tar.gz -C kafka-eagle --strip-components 1 && \
     cd kafka-eagle;tar zxf kafka-eagle-web-${EAGLE_VERSION}-bin.tar.gz --strip-components 1 && \
     chmod +x /opt/kafka-eagle/bin/ke.sh && \
