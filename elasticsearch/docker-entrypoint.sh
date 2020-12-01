@@ -27,7 +27,7 @@ config_set(){
         fi
 		
 		sed -i "/#discovery.zen.minimum_master_nodes:.*/adiscovery.zen.minimum_master_nodes: ${minimum_master_nodes}" /opt/elasticsearch/config/elasticsearch.yml
-		sed -i "/#discovery.zen.minimum_master_nodes:.*/adiscovery.zen.ping_timeout: 30s" /opt/elasticsearch/config/elasticsearch.yml
+		sed -i "/#discovery.zen.minimum_master_nodes:.*/adiscovery.zen.ping_timeout: 60s" /opt/elasticsearch/config/elasticsearch.yml
 		sed -i "/#discovery.zen.minimum_master_nodes:.*/adiscovery.initial_state_timeout: 5m" /opt/elasticsearch/config/elasticsearch.yml
 		
 		sed -i "/#gateway.recover_after_nodes.*/agateway.recover_after_nodes: ${recover_after_nodes}" /opt/elasticsearch/config/elasticsearch.yml
