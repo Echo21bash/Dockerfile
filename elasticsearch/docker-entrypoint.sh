@@ -1,8 +1,8 @@
 #!/bin/bash
 
-ES_CLUSTER_NAME=${ES_CLUSTER_NAME:-}
+ES_CLUSTER_NAME=${ES_CLUSTER_NAME:-elasticsearch}
 ES_CLUSTER_HOSTS=${ES_CLUSTER_HOSTS:-}
-ES_NODE_NAME=${ES_NODE_NAME:-}
+ES_NODE_NAME=${ES_NODE_NAME:-node1}
 ES_NODE_TYPE=${ES_NODE_TYPE:-single-node}
 ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms1G -Xmx1G}
 ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
@@ -17,16 +17,15 @@ run_env(){
 
 config_set(){
 	###通用配置
+	sed -i "s/#node.name:.*/node.name: ${ES_NODE_NAME}/" /opt/elasticsearch//config/elasticsearch.yml
+	sed -i "s/#cluster.name:.*/cluster.name: ${ES_CLUSTER_NAME}/" /opt/elasticsearch/config/elasticsearch.yml
 	sed -i "s/#network.host:.*/network.host: 0.0.0.0/" /opt/elasticsearch/config/elasticsearch.yml
-	sed -i "/#action.destructive_requires_name:.*/a# 有了这个设置，最久未使用（LRU）的 fielddata 会被回收为新数据腾出空间" /opt/elasticsearch/config/elasticsearch.yml
-	sed -i "/#action.destructive_requires_name:.*/aindices.fielddata.cache.size: 25%" /opt/elasticsearch/config/elasticsearch.yml
-	sed -i "/#action.destructive_requires_name:.*/acluster.max_shards_per_node: 20000" /opt/elasticsearch/config/elasticsearch.yml
+	sed -i "/#action.destructive_requires_name:.*/i# 有了这个设置，最久未使用（LRU）的 fielddata 会被回收为新数据腾出空间" /opt/elasticsearch/config/elasticsearch.yml
+	sed -i "/#action.destructive_requires_name:.*/iindices.fielddata.cache.size: 25%" /opt/elasticsearch/config/elasticsearch.yml
+	sed -i "/#action.destructive_requires_name:.*/icluster.max_shards_per_node: 20000" /opt/elasticsearch/config/elasticsearch.yml
 	
-	if [[ ${ES_NODE_TYPE} = 'single-node' ]];then
-		if [[ "$ES_VER" -gt 6 ]]; then
-			sed -i "s/#discovery.seed_hosts:.*/discovery.seed_hosts: 127.0.0.1/" /opt/elasticsearch/config/elasticsearch.yml
-			sed -i "s/#cluster.initial_master_nodes:.*/cluster.initial_master_nodes: 127.0.0.1/" /opt/elasticsearch/config/elasticsearch.yml
-        fi
+	if [[ ${ES_NODE_TYPE} = 'single-node' && -z ${ES_CLUSTER_HOSTS} ]];then
+		sed -i "/network.host:.*/adiscovery.type: single-node" /opt/elasticsearch/config/elasticsearch.yml
 	fi
 	if [[ -n ${ES_CLUSTER_HOSTS} ]];then
 		read -r -a host_list <<< "$(tr ',;' ' ' <<< "$ES_CLUSTER_HOSTS")"
@@ -51,9 +50,6 @@ config_set(){
 		sed -i "/#gateway.recover_after_nodes.*/agateway.recover_after_nodes: ${recover_after_nodes}" /opt/elasticsearch/config/elasticsearch.yml
 		sed -i "/#gateway.recover_after_nodes.*/agateway.expected_nodes: ${expected_nodes}" /opt/elasticsearch/config/elasticsearch.yml
 	fi
-
-	[[ -n ${ES_NODE_NAME} ]] && sed -i "s/#node.name:.*/node.name: ${ES_NODE_NAME}/" /opt/elasticsearch//config/elasticsearch.yml
-	[[ -n ${ES_CLUSTER_NAME} ]] && sed -i "s/#cluster.name:.*/cluster.name: ${ES_CLUSTER_NAME}/" /opt/elasticsearch/config/elasticsearch.yml
 
 	echo "###############################config-info###############################"
 	cat /opt/elasticsearch/config/elasticsearch.yml | grep -v "^#"
