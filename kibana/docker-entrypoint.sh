@@ -16,4 +16,4 @@ config_set(){
 }
 
 config_set
-exec "$@"
+exec gosu kibana "$@"
