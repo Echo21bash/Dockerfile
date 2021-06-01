@@ -1,6 +1,6 @@
 FROM centos:7.5.1804
 
-LABEL name="centos7 JDK8 Kibana"
+LABEL name="Centos7 Kibana"
 
 ENV KIBANA_HOME=/opt/kibana PATH=$PATH:/opt/kibana/bin
 
