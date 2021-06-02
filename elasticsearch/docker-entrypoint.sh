@@ -2,13 +2,16 @@
 
 ES_CLUSTER_NAME=${ES_CLUSTER_NAME:-elasticsearch}
 ES_CLUSTER_HOSTS=${ES_CLUSTER_HOSTS:-}
+ES_HOSTS_DISCOVERY=${ES_HOSTS_DISCOVERY:-es-discovery}
 ES_NODE_NAME=${ES_NODE_NAME:-node1}
 ES_NODE_TYPE=${ES_NODE_TYPE:-single-node}
 JAVA_JVM_MEM=${JAVA_JVM_MEM:-1G}
 ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
 
 run_env(){
-	ES_JAVA_OPTS="-Xms${JAVA_JVM_MEM} -Xmx${JAVA_JVM_MEM}"
+	if [[ -z ${ES_JAVA_OPTS} ]];then
+		ES_JAVA_OPTS="-Xms${JAVA_JVM_MEM} -Xmx${JAVA_JVM_MEM}"
+	fi
 	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 	ES_VER=$(elasticsearch --version | grep Version: | awk -F "," '{print $1}' | awk -F ":" '{print $2}' | awk -F "." '{print $1}')
 	export ES_VER=${ES_VER}
@@ -39,7 +42,9 @@ config_set(){
 		if [[ "$ES_VER" -le 6 ]]; then
 			sed -i "s/#discovery.zen.ping.unicast.hosts:.*/discovery.zen.ping.unicast.hosts: ${ES_CLUSTER_HOSTS}/" /opt/elasticsearch/config/elasticsearch.yml
         else
-			sed -i "s/#discovery.seed_hosts:.*/discovery.seed_hosts: ${ES_CLUSTER_HOSTS}/" /opt/elasticsearch/config/elasticsearch.yml
+			if [[ -n ${ES_HOSTS_DISCOVERY} ]];then
+				sed -i "s/#discovery.seed_hosts:.*/discovery.seed_hosts: ${ES_HOSTS_DISCOVERY}/" /opt/elasticsearch/config/elasticsearch.yml
+			fi
 			sed -i "s/#cluster.initial_master_nodes:.*/cluster.initial_master_nodes: ${ES_CLUSTER_HOSTS}/" /opt/elasticsearch/config/elasticsearch.yml
         fi
 		
