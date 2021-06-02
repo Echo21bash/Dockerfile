@@ -17,10 +17,10 @@ updata_config(){
 		sed -i "s/broker.id=0/broker.id=${BROKER_ID}/" /opt/kafka/config/server.properties
 	fi
 	sed -i "/exec/iexport JMX_PORT=${KAFKA_JMX_PORT}" /opt/kafka/bin/kafka-server-start.sh
-	sed -i "s@log.dirs=/tmp/kafka-logs@log.dirs=${KAFKA_DATA_DIR}@" /opt/kafka/config/server.properties
-	sed -i "s@zookeeper.connect=localhost:2181@zookeeper.connect=${ZK_CONNECT}@" /opt/kafka/config/server.properties
+	sed -i "s%log.dirs=/tmp/kafka-logs%log.dirs=${KAFKA_DATA_DIR}%" /opt/kafka/config/server.properties
+	sed -i "s%zookeeper.connect=localhost:2181%zookeeper.connect=${ZK_CONNECT}%" /opt/kafka/config/server.properties
 	if [[ ${ZK_CONNECT} = 'localhost:2181' ]];then
-		sed -i "s@dataDir=/tmp/zookeeper@dataDir=/opt/kafka/logs/zookeeper@" /opt/kafka/config/zookeeper.properties
+		sed -i "s%dataDir=/tmp/zookeeper%dataDir=/opt/kafka/data/zookeeper%" /opt/kafka/config/zookeeper.properties
 		/opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties &
 	fi
 }
