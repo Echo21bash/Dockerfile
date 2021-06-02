@@ -4,11 +4,11 @@ ES_CLUSTER_NAME=${ES_CLUSTER_NAME:-elasticsearch}
 ES_CLUSTER_HOSTS=${ES_CLUSTER_HOSTS:-}
 ES_NODE_NAME=${ES_NODE_NAME:-node1}
 ES_NODE_TYPE=${ES_NODE_TYPE:-single-node}
-ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms1G -Xmx1G}
+JAVA_JVM_MEM=${JAVA_JVM_MEM:-1G}
 ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
 
 run_env(){
-
+	ES_JAVA_OPTS="-Xms${JAVA_JVM_MEM} -Xmx${JAVA_JVM_MEM}"
 	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 	ES_VER=$(elasticsearch --version | grep Version: | awk -F "," '{print $1}' | awk -F ":" '{print $2}' | awk -F "." '{print $1}')
 	export ES_VER=${ES_VER}
@@ -51,9 +51,9 @@ config_set(){
 		sed -i "/#gateway.recover_after_nodes.*/agateway.expected_nodes: ${expected_nodes}" /opt/elasticsearch/config/elasticsearch.yml
 	fi
 
-	echo "###############################config-info###############################"
+	echo "###############################Config-Info###############################"
 	cat /opt/elasticsearch/config/elasticsearch.yml | grep -v "^#"
-	echo "###############################config-info###############################"
+	echo "###############################Config-Info###############################"
 
 }
 

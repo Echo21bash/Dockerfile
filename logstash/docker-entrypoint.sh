@@ -6,6 +6,7 @@ LOGSTASH_CONF_EXTRA_DIR="${LOGSTASH_BASE_DIR}/config.d"
 LOGSTASH_BIN_DIR="${LOGSTASH_BASE_DIR}/bin"
 LOGSTASH_LOG_DIR="${LOGSTASH_BASE_DIR}/logs"
 LOGSTASH_CONF_FILENAME="${LOGSTASH_CONF_FILENAME:-logstash.conf}"
+JAVA_JVM_MEM="1G"
 
 logstash_set(){
     sed -i "s%# path.config.*%path.config: ${LOGSTASH_BASE_DIR}/config.d%" ${LOGSTASH_CONF_DIR}/logstash.yml
