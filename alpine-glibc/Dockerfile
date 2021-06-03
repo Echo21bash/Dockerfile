@@ -26,7 +26,7 @@ RUN apk add --no-cache --virtual=build-dependencies binutils xz zstd \
     && cd /tmp \
     && mkdir /tmp/gcc \
     && wget "http://mirrors.163.com/archlinux/core/os/x86_64/gcc-libs-${GCC_LIBS_VERSION}-x86_64.pkg.tar.zst" -O gcc-libs.tar.zst \
-    && zstd -d /tmp/gcc-libs.tar.zst --output-dir-flat /tmp \
+    && zstd -d /tmp/gcc-libs.tar.zst \
     && tar -xf /tmp/gcc-libs.tar -C /tmp/gcc \
     && mv /tmp/gcc/usr/lib/libgcc* /tmp/gcc/usr/lib/libstdc++* /usr/glibc-compat/lib \
     && strip /usr/glibc-compat/lib/libgcc_s.so.* /usr/glibc-compat/lib/libstdc++.so* \
