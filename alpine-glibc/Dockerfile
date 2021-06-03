@@ -6,14 +6,14 @@ ENV GLIBC_VERSION=2.29-r0 \
     TZ=Asia/Shanghai
 
 #Install bash & glibc
-RUN apk add --no-cache bash tzdata \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+    && apk add --no-cache bash tzdata \
     && wget -q -O /etc/apk/keys/sgerrand.rsa.pub "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" \
     && wget -q -O glibc.apk "https://hub.fastgit.org/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" \
     && wget -q -O glibc-bin.apk "https://hub.fastgit.org/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
     && wget -q -O glibc-i18n.apk "https://hub.fastgit.org/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-i18n-${GLIBC_VERSION}.apk" \
     && apk add glibc-bin.apk glibc.apk glibc-i18n.apk \
     && sed -i 's/ash/bash/g' /etc/passwd \
-    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && ln -snf /bin/bash /bin/sh \
     && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib \
     && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
