@@ -1,7 +1,7 @@
 FROM alpine:3.9
 
 ENV GLIBC_VERSION=2.29-r0 \
-    GCC_LIBS_VERSION=10.1.0-1 \
+    GCC_LIBS_VERSION=11.1.0-1 \
     ZLIB_VERSION=1.2.11-4 \
     TZ=Asia/Shanghai
 
@@ -19,7 +19,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
     && ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8 \
-    && rm -rf glibc.apk glibc-bin.apk /var/cache/apk/*
+    && rm -rf glibc.apk glibc-bin.apk glibc-i18n.apk /var/cache/apk/*
 
 #Install gcc-libs & zlib
 RUN apk add --no-cache --virtual=build-dependencies binutils xz zstd \
@@ -35,6 +35,6 @@ RUN apk add --no-cache --virtual=build-dependencies binutils xz zstd \
     && tar xvJf zlib.pkg.tar.xz -C /tmp/zlib \
     && mv /tmp/zlib/usr/lib/libz.so* /usr/glibc-compat/lib \
     && apk del build-dependencies \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* /var/cache/apk/*
 
 ENV LANG=en_US.UTF-8
