@@ -14,24 +14,24 @@ RUN echo Downloading java package... && \
     sed -i '/permission java.util.PropertyPermission "java.vm.name", "read";/a\        permission java.io.FilePermission "<<ALL FILES>>","read,write,delete";' ${JAVA_HOME}/jre/lib/security/java.policy && \
     rm -rf /tmp/jdk.tar.gz \
            /opt/java/*src.zip \
-           /opt/jdk/lib/missioncontrol \
-           /opt/jdk/lib/visualvm \
-           /opt/jdk/lib/*javafx* \
-           /opt/jdk/jre/lib/plugin.jar \
-           /opt/jdk/jre/lib/ext/jfxrt.jar \
-           /opt/jdk/jre/bin/javaws \
-           /opt/jdk/jre/lib/javaws.jar \
-           /opt/jdk/jre/lib/desktop \
-           /opt/jdk/jre/plugin \
-           /opt/jdk/jre/lib/deploy* \
-           /opt/jdk/jre/lib/*javafx* \
-           /opt/jdk/jre/lib/*jfx* \
-           /opt/jdk/jre/lib/amd64/libdecora_sse.so \
-           /opt/jdk/jre/lib/amd64/libprism_*.so \
-           /opt/jdk/jre/lib/amd64/libfxplugins.so \
-           /opt/jdk/jre/lib/amd64/libglass.so \
-           /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
-           /opt/jdk/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/jre/lib/amd64/libjfx*.so
+           /opt/java/lib/missioncontrol \
+           /opt/java/lib/visualvm \
+           /opt/java/lib/*javafx* \
+           /opt/java/jre/lib/plugin.jar \
+           /opt/java/jre/lib/ext/jfxrt.jar \
+           /opt/java/jre/bin/javaws \
+           /opt/java/jre/lib/javaws.jar \
+           /opt/java/jre/lib/desktop \
+           /opt/java/jre/plugin \
+           /opt/java/jre/lib/deploy* \
+           /opt/java/jre/lib/*javafx* \
+           /opt/java/jre/lib/*jfx* \
+           /opt/java/jre/lib/amd64/libdecora_sse.so \
+           /opt/java/jre/lib/amd64/libprism_*.so \
+           /opt/java/jre/lib/amd64/libfxplugins.so \
+           /opt/java/jre/lib/amd64/libglass.so \
+           /opt/java/jre/lib/amd64/libgstreamer-lite.so \
+           /opt/java/jre/lib/amd64/libjavafx*.so \
+           /opt/java/jre/lib/amd64/libjfx*.so
 
 WORKDIR /opt/jar
