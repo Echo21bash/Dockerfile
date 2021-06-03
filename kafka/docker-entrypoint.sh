@@ -3,9 +3,15 @@
 BROKER_ID=${BROKER_ID:-}
 KAFKA_DATA_DIR=${KAFKA_DATA_DIR:-/opt/kafka/data/kafka}
 ZK_CONNECT=${ZK_CONNECT:-localhost:2181}
-KAFKA_HEAP_OPTS=${KAFKA_HEAP_OPTS:--Xmx1G -Xms1G}
+JAVA_JVM_MEM=${JAVA_JVM_MEM:-}
 KAFKA_OTHER_OPTS=${KAFKA_OTHER_OPTS:-}
 KAFKA_JMX_PORT=${KAFKA_JMX_PORT:-9999}
+
+run_env(){
+	if [[ -n ${JAVA_JVM_MEM} ]];then
+		KAFKA_HEAP_OPTS="-Xms${JAVA_JVM_MEM} -Xmx${JAVA_JVM_MEM}"
+	fi
+}
 
 updata_config(){
 	if [[ -z $BROKER_ID ]];then
@@ -25,6 +31,6 @@ updata_config(){
 	fi
 }
 
+run_env
 updata_config
-
 exec "$@" ${KAFKA_OTHER_OPTS}

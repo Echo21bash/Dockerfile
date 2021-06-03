@@ -4,11 +4,13 @@ ES_CLUSTER_NAME=${ES_CLUSTER_NAME:-elasticsearch}
 ES_CLUSTER_HOSTS=${ES_CLUSTER_HOSTS:-}
 ES_NODE_NAME=${ES_NODE_NAME:-node1}
 ES_NODE_TYPE=${ES_NODE_TYPE:-single-node}
-JAVA_JVM_MEM=${JAVA_JVM_MEM:-1G}
+JAVA_JVM_MEM=${JAVA_JVM_MEM:-}
 ES_OTHER_OPTS=${ES_OTHER_OPTS:-}
 
 run_env(){
-	ES_JAVA_OPTS="-Xms${JAVA_JVM_MEM} -Xmx${JAVA_JVM_MEM}"
+	if [[ -n ${JAVA_JVM_MEM} ]];then
+		ES_JAVA_OPTS="-Xms${JAVA_JVM_MEM} -Xmx${JAVA_JVM_MEM}"
+	fi
 	export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 	ES_VER=$(elasticsearch --version | grep Version: | awk -F "," '{print $1}' | awk -F ":" '{print $2}' | awk -F "." '{print $1}')
 	export ES_VER=${ES_VER}
