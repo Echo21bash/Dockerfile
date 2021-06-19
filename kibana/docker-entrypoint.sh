@@ -12,9 +12,10 @@ config_set(){
 	[[ -n ${ES_URL} ]] && sed -i "s!#elasticsearch.hosts:.*!elasticsearch.hosts: [${ES_URL}]!" /opt/kibana/config/kibana.yml
 	#兼容旧版ES地址参数
 	[[ -n ${ES_URL} ]] && sed -i "s!#elasticsearch.url:.*!elasticsearch.url: ${ES_URL}!" /opt/kibana/config/kibana.yml
-	[[ -n ${ES_USERNAME} ]] && sed -i "s/#elasticsearch.username:.*/elasticsearch.username: ${ES_USERNAME}/" /opt/kibana/config/kibana.yml
-	[[ -n ${ES_PASSWORD} ]] && sed -i "s/#elasticsearch.password:.*/elasticsearch.password: ${ES_PASSWORD}/" /opt/kibana/config/kibana.yml
-
+	[[ -n ${ES_USERNAME} ]] && sed -i "s/#elasticsearch.username:.*/elasticsearch.username: \"${ES_USERNAME}\"/" /opt/kibana/config/kibana.yml
+	[[ -n ${ES_PASSWORD} ]] && sed -i "s/#elasticsearch.password:.*/elasticsearch.password: \"${ES_PASSWORD}\"/" /opt/kibana/config/kibana.yml
+	[[ -n ${ES_USERNAME} ]] && sed -i "s/elasticsearch.username:.*/elasticsearch.username: \"${ES_USERNAME}\"/" /opt/kibana/config/kibana.yml
+	[[ -n ${ES_PASSWORD} ]] && sed -i "s/elasticsearch.password:.*/elasticsearch.password: \"${ES_PASSWORD}\"/" /opt/kibana/config/kibana.yml
 }
 
 config_set
