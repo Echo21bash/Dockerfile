@@ -11,43 +11,43 @@
 #
  
 [base]
-name=CentOS-$releasever - Base - mirrors.aliyun.com
+name=CentOS-7.9.2009 - Base - mirrors.aliyun.com
 failovermethod=priority
-baseurl=https://mirrors.aliyun.com/centos-vault/$releasever/os/$basearch/
+baseurl=https://mirrors.aliyun.com/centos-vault/7.9.2009/os/$basearch/
 gpgcheck=1
 gpgkey=https://mirrors.aliyun.com/centos-vault/RPM-GPG-KEY-CentOS-7
 
  
 #released updates 
 [updates]
-name=CentOS-$releasever - Updates - mirrors.aliyun.com
+name=CentOS-7.9.2009 - Updates - mirrors.aliyun.com
 failovermethod=priority
-baseurl=https://mirrors.aliyun.com/centos-vault/$releasever/updates/$basearch/
+baseurl=https://mirrors.aliyun.com/centos-vault/7.9.2009/updates/$basearch/
 gpgcheck=1
 gpgkey=https://mirrors.aliyun.com/centos-vault/RPM-GPG-KEY-CentOS-7
  
 #additional packages that may be useful
 [extras]
-name=CentOS-$releasever - Extras - mirrors.aliyun.com
+name=CentOS-7.9.2009 - Extras - mirrors.aliyun.com
 failovermethod=priority
-baseurl=https://mirrors.aliyun.com/centos-vault/$releasever/extras/$basearch/
+baseurl=https://mirrors.aliyun.com/centos-vault/7.9.2009/extras/$basearch/
 gpgcheck=1
 gpgkey=https://mirrors.aliyun.com/centos-vault/RPM-GPG-KEY-CentOS-7
  
 #additional packages that extend functionality of existing packages
 [centosplus]
-name=CentOS-$releasever - Plus - mirrors.aliyun.com
+name=CentOS-7.9.2009 - Plus - mirrors.aliyun.com
 failovermethod=priority
-baseurl=https://mirrors.aliyun.com/centos-vault/$releasever/centosplus/$basearch/
+baseurl=https://mirrors.aliyun.com/centos-vault/7.9.2009/centosplus/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=https://mirrors.aliyun.com/centos-vault/RPM-GPG-KEY-CentOS-7
  
 #contrib - packages by Centos Users
 [contrib]
-name=CentOS-$releasever - Contrib - mirrors.aliyun.com
+name=CentOS-7.9.2009 - Contrib - mirrors.aliyun.com
 failovermethod=priority
-baseurl=https://mirrors.aliyun.com/centos-vault/$releasever/contrib/$basearch/
+baseurl=https://mirrors.aliyun.com/centos-vault/7.9.2009/contrib/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=https://mirrors.aliyun.com/centos-vault/RPM-GPG-KEY-CentOS-7
