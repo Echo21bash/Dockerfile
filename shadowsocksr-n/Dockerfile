@@ -9,8 +9,8 @@ ENV VER_NUM=0.9.3 \
 
 ADD docker-entrypoint.sh /opt
 
-RUN apk --no-cache add libsodium curl \
-    && curl -L -o /tmp/ssr-native-linux-x64.zip https://ghproxy.com/https://github.com/ShadowsocksR-Live/shadowsocksr-native/releases/download/${VER_NUM}/ssr-native-linux-x64.zip \
+RUN apk --no-cache add libsodium json-c libuv mbedtls \
+    && wget -O /tmp/ssr-native-linux-x64.zip https://ghproxy.com/https://github.com/ShadowsocksR-Live/shadowsocksr-native/releases/download/${VER_NUM}/ssr-native-linux-x64.zip \
     && mkdir -p /opt/ssr-n \
     && unzip /tmp/ssr-native-linux-x64.zip -d /opt/ssr-n \
     && chmod +x /opt/docker-entrypoint.sh \
