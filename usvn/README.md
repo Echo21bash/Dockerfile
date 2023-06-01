@@ -11,7 +11,7 @@
 mkdir -p /data/usvn/
 chown -R 33.33 /data/usvn
 ###部署usvn
-docker run  --name usvn \
+docker run -d --name usvn \
 -p 8888:80 \
 -e USVN_SUBDIR=/usvn \
 -v /data/usvn/:/var/lib/svn/ \
