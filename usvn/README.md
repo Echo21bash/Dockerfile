@@ -15,3 +15,7 @@ docker run  --name usvn \
 -v /data/usvn/:/var/lib/svn/ \
 dockerproxy.com/echo21bash/usvn:1.0.10
 ```
+
+## LDAP
+
+<img src="img/ldap.png" style="zoom: 80%;" />
